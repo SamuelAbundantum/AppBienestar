@@ -1,0 +1,21 @@
+1. Carpeta config:
+
+La carpeta config contiene archivos relacionados con la configuración de la aplicación.
+Aquí se encuentran todos los elementos que definen el entorno y el comportamiento
+general de la aplicación. Algunos ejemplos de lo que podrías encontrar en esta carpeta son:
+
+config.dart: Un archivo que centraliza la configuración general de la aplicación,
+como rutas de API, claves de acceso, y otras variables de entorno.
+
+router/: Una carpeta que contiene archivos relacionados con la configuración del enrutador de la
+aplicación, como las rutas de navegación y la configuración de transiciones entre pantallas.
+
+helpers/: Una carpeta que alberga funciones y clases de utilidad que se utilizan en toda la
+aplicación, como funciones para formatear fechas o para manejar solicitudes HTTP.
+
+Ejemplo de contenido en config.dart:
+
+class AppConfig {
+  static const String apiUrl = 'https://api.example.com';
+  static const String apiKey = 'YOUR_API_KEY';
+}

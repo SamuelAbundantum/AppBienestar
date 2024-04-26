@@ -1,0 +1,30 @@
+2. Carpeta domain:
+
+La carpeta domain contiene la lógica de dominio de la aplicación. Aquí se encuentran las
+entidades y los casos de uso que representan los conceptos fundamentales y la funcionalidad
+principal de la aplicación. Algunos ejemplos de lo que podrías encontrar en esta carpeta son:
+
+entities/: Una carpeta que contiene las clases de entidades que representan los conceptos
+principales de la aplicación, como usuarios, productos o transacciones.
+
+use_cases/: Una carpeta que contiene los casos de uso de la aplicación, que son clases o
+funciones que encapsulan la lógica de negocio de la aplicación y definen las acciones que se
+pueden realizar en la misma.
+
+Ejemplo de contenido en entities/todo.dart:
+
+import 'package:equatable/equatable.dart';
+
+class Todo extends Equatable {
+  final String id;
+  final String description;
+  final DateTime? completedAt;
+
+  const Todo({
+    required this.id,
+    required this.description,
+    required this.completedAt,
+  });
+
+  // Métodos adicionales como getters, setters y métodos de comparación
+}

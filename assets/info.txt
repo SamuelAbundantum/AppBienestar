@@ -1,0 +1,14 @@
+Directorio assets/: Este directorio se utiliza para almacenar recursos estáticos como imágenes,
+iconos, fuentes y otros archivos que se incluirán en la aplicación.
+
+Puedes crear subdirectorios dentro de assets/ para organizar mejor los diferentes tipos de
+recursos. Por ejemplo:
+
+assets/images/: Para imágenes utilizadas en la aplicación.
+
+assets/icons/: Para iconos utilizados en la aplicación.
+
+assets/fonts/: Para fuentes personalizadas utilizadas en la aplicación.
+
+assets/data/: Para archivos de datos estáticos como archivos de texto (txt), archivos CSV u otros
+tipos de archivos de datos.
