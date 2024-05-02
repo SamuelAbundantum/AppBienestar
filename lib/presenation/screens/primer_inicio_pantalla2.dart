@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/router/rutas.dart';
 import '../widgets/widgets.dart';
 
@@ -8,31 +9,30 @@ class PrimerInicioPantalla2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFB973FF),
       body: Stack(
         children: [
           Positioned(
-            top: screenHeight * -0.02,
-            left: screenWidth * 0.28,
+            top: 0.01.sh,
+            left: 0.28.sw,
             child: Image.asset(
               'assets/images/reloj.png',
-              width: screenWidth * 0.45,
-              height: screenHeight * 0.45,
+              width: 0.45.sw,
+              height: 0.45.sh,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.065),
+            padding: EdgeInsets.only(top: 0.065.sh),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RectanguloPequenyoIndicador(color: Colors.grey),
-                    SizedBox(width: 30.0),
+                    SizedBox(width: 30.w),
                     RectanguloPequenyoIndicador(color: Colors.black),
                   ],
                 ),
@@ -40,8 +40,8 @@ class PrimerInicioPantalla2 extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight * 0.89,
-            left: screenWidth * 0.10,
+            top: 0.89.sh,
+            left: 0.10.sw,
             child: BotonContinuar(
               onPressed: () {
                 context.read<CubitRutas>().goPrimerInicioPantalla1();
@@ -49,35 +49,34 @@ class PrimerInicioPantalla2 extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight * 0.68,
-            left: screenWidth * 0.10,
+            top: 0.68.sh,
+            left: 0.07.sw,
             child: BotonHora(),
           ),
           Positioned(
-            top: screenHeight * 0.34,
-            left: screenWidth * 0.12,
+            top: 0.37.sh,
+            left: 0.08.sw,
             child: Text(
               'Ajusta tu recordatorio',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 32.0,
+                fontSize: 32.sp,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins',
               ),
             ),
           ),
           Positioned(
-            top: screenHeight * 0.42,
-            left: screenWidth * 0.1,
+            top: 0.45.sh,
+            left: 0.05.sw,
             child: Container(
-              width: screenWidth * 0.8,
-              height: screenHeight * 0.15,
+              width: 0.9.sw,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.20),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(15.w),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -86,18 +85,18 @@ class PrimerInicioPantalla2 extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 16.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 20.h),
                     Text(
                       'Selecciona una hora para completar el día.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 16.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w900,
                       ),

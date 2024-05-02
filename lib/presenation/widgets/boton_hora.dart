@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../config/helpers/helpers.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BotonHora extends StatefulWidget {
   const BotonHora({Key? key}) : super(key: key);
@@ -24,12 +25,12 @@ class _BotonHoraState extends State<BotonHora> {
         _selectorDeHora(context);
       },
       child: Container(
-        width: 315,
-        height: 70,
+        width: 315.w, // Utiliza .w para escalar el ancho de la pantalla
+        height: 70.h, // Utiliza .h para escalar la altura de la pantalla
         decoration: BoxDecoration(
           color: Colors.amber,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: Colors.white, width: 3),
+          borderRadius: BorderRadius.circular(18.w), // Utiliza .w para escalar el radio de borde
+          border: Border.all(color: Colors.white, width: 3.w), // Utiliza .w para escalar el ancho del borde
         ),
         child: StreamBuilder<TimeOfDay>(
           stream: _horaSeleccionadaStream,
@@ -44,22 +45,22 @@ class _BotonHoraState extends State<BotonHora> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.notifications),
-                  SizedBox(width: 10),
+                  SizedBox(width: 10.w), // Utiliza .w para escalar el espacio entre widgets
                   Text(
                     horaMostrada.format(context),
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w900,
-                      fontSize: 20,
+                      fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
                     ),
                   ),
-                  SizedBox(width: 70),
+                  SizedBox(width: 70.w), // Utiliza .w para escalar el espacio entre widgets
                   Text(
                     'Programar >',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w900,
-                      fontSize: 20,
+                      fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
                     ),
                   ),
                 ],
@@ -82,4 +83,3 @@ class _BotonHoraState extends State<BotonHora> {
     }
   }
 }
-

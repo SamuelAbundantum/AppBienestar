@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/router/rutas.dart';
 import '../widgets/widgets.dart';
 
@@ -8,31 +9,31 @@ class PrimerInicioPantalla1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // Inicializar flutter_screenutil
+    ScreenUtil.init(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFF3EB6C4),
       body: Stack(
         children: [
           Positioned(
-            top: screenHeight * -0.29,
-            left: screenWidth * 0.01,
+            top: -0.29.sh, // Utiliza .sh para escalar el tamaño de la pantalla
+            left: 0.01.sw, // Utiliza .sw para escalar el ancho de la pantalla
             child: Image.asset(
               'assets/images/SAMBAMI.png',
-              width: screenWidth,
-              height: screenHeight,
+              width: 1.sw, // Utiliza .sw para escalar el ancho de la pantalla
+              height: 1.sh, // Utiliza .sh para escalar el tamaño de la pantalla
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: screenHeight * 0.065),
+            padding: EdgeInsets.only(top: 0.065.sh),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RectanguloPequenyoIndicador(color: Colors.black),
-                    SizedBox(width: 30.0),
+                    SizedBox(width: 30.w), // Utiliza .w para escalar el ancho de la pantalla
                     RectanguloPequenyoIndicador(color: Colors.grey),
                   ],
                 ),
@@ -40,8 +41,8 @@ class PrimerInicioPantalla1 extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight * 0.89,
-            left: screenWidth * 0.10,
+            top: 0.89.sh,
+            left: 0.10.sw,
             child: BotonContinuar(
               onPressed: () {
                 context.read<CubitRutas>().goPrimerInicioPantalla2();
@@ -49,43 +50,42 @@ class PrimerInicioPantalla1 extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight * 0.33,
-            left: screenWidth * 0.26,
+            top: 0.33.sh,
+            left: 0.26.sw,
             child: Text(
               'Bienvenido a',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 32.0,
+                fontSize: 32.sp, // Utiliza .sp para escalar el tamaño de la fuente
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins',
               ),
             ),
           ),
           Positioned(
-            top: screenHeight * 0.38,
-            left: screenWidth * 0.10,
+            top: 0.38.sh,
+            left: 0.10.sw,
             child: Text(
               'Sambami Paz Interior',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 32.0,
+                fontSize: 32.sp, // Utiliza .sp para escalar el tamaño de la fuente
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins',
               ),
             ),
           ),
           Positioned(
-            top: screenHeight * 0.45,
-            left: screenWidth * 0.1,
+            top: 0.45.sh,
+            left: 0.1.sw,
             child: Container(
-              width: screenWidth * 0.8,
-              height: screenHeight * 0.4,
+              width: 0.8.sw,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.20),
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -94,29 +94,29 @@ class PrimerInicioPantalla1 extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 16.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 20.h),
                     Text(
                       'Con cada interacción, te ayuda a reconocer y transformar tus emociones, inspirándote a danzar a través de la vida con resiliencia y espíritu festivo. ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 16.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    SizedBox(height: 20.h),
                     Text(
                       'En Sambami, cada dificultad es un paso más hacia la felicidad.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 16.sp,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w900,
                       ),
@@ -126,6 +126,7 @@ class PrimerInicioPantalla1 extends StatelessWidget {
               ),
             ),
           ),
+
         ],
       ),
     );
