@@ -9,7 +9,7 @@ final _rutasPublicas = GoRouter(
           builder: (context, state) => PrimerInicioPantalla1(),
       ),
       GoRoute(
-          path: '/presenation/screens/primer_inicio_pantalla1',
+          path: '/primer_inicio_pantalla1',
           builder: (context, state) => PrimerInicioPantalla1(),
       ),
       GoRoute(

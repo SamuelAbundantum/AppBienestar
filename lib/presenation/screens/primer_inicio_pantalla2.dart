@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../config/router/rutas.dart';
 import '../widgets/widgets.dart';
 
 class PrimerInicioPantalla2 extends StatelessWidget {
@@ -14,12 +16,12 @@ class PrimerInicioPantalla2 extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: screenHeight * -0.29,
-            left: screenWidth * 0.01,
+            top: screenHeight * -0.02,
+            left: screenWidth * 0.28,
             child: Image.asset(
-              'assets/images/SAMBAMI.png',
-              width: screenWidth,
-              height: screenHeight,
+              'assets/images/reloj.png',
+              width: screenWidth * 0.45,
+              height: screenHeight * 0.45,
             ),
           ),
           Padding(
@@ -29,9 +31,9 @@ class PrimerInicioPantalla2 extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RectanguloPequenyoIndicador(color: Colors.black),
-                    SizedBox(width: 30.0),
                     RectanguloPequenyoIndicador(color: Colors.grey),
+                    SizedBox(width: 30.0),
+                    RectanguloPequenyoIndicador(color: Colors.black),
                   ],
                 ),
               ],
@@ -40,26 +42,22 @@ class PrimerInicioPantalla2 extends StatelessWidget {
           Positioned(
             top: screenHeight * 0.89,
             left: screenWidth * 0.10,
-            child: BotonContinuar(),
-          ),
-          Positioned(
-            top: screenHeight * 0.33,
-            left: screenWidth * 0.26,
-            child: Text(
-              'Bienvenido a',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 32.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins',
-              ),
+            child: BotonContinuar(
+              onPressed: () {
+                context.read<CubitRutas>().goPrimerInicioPantalla1();
+              },
             ),
           ),
           Positioned(
-            top: screenHeight * 0.38,
+            top: screenHeight * 0.68,
             left: screenWidth * 0.10,
+            child: BotonHora(),
+          ),
+          Positioned(
+            top: screenHeight * 0.34,
+            left: screenWidth * 0.12,
             child: Text(
-              'Sambami Paz Interior',
+              'Ajusta tu recordatorio',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 32.0,
@@ -69,11 +67,11 @@ class PrimerInicioPantalla2 extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight * 0.45,
+            top: screenHeight * 0.42,
             left: screenWidth * 0.1,
             child: Container(
               width: screenWidth * 0.8,
-              height: screenHeight * 0.4,
+              height: screenHeight * 0.15,
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.20),
                 borderRadius: BorderRadius.circular(10.0),
@@ -84,7 +82,7 @@ class PrimerInicioPantalla2 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Sambami te acompaña en tu viaje emocional, mostrándote que cada desafío es una oportunidad para encontrar armonía y alegría.',
+                      'Recuerda ser feliz.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -95,18 +93,7 @@ class PrimerInicioPantalla2 extends StatelessWidget {
                     ),
                     SizedBox(height: 20.0),
                     Text(
-                      'Con cada interacción, te ayuda a reconocer y transformar tus emociones, inspirándote a danzar a través de la vida con resiliencia y espíritu festivo. ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      'En Sambami, cada dificultad es un paso más hacia la felicidad.',
+                      'Selecciona una hora para completar el día.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,

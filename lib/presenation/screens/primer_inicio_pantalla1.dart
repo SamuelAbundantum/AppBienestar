@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../config/router/rutas.dart';
 import '../widgets/widgets.dart';
 
 class PrimerInicioPantalla1 extends StatelessWidget {
@@ -40,7 +42,11 @@ class PrimerInicioPantalla1 extends StatelessWidget {
           Positioned(
             top: screenHeight * 0.89,
             left: screenWidth * 0.10,
-            child: BotonContinuar(),
+            child: BotonContinuar(
+              onPressed: () {
+                context.read<CubitRutas>().goPrimerInicioPantalla2();
+              },
+            ),
           ),
           Positioned(
             top: screenHeight * 0.33,

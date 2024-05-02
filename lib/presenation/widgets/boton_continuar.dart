@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../config/router/rutas.dart';
 
 class BotonContinuar extends StatelessWidget {
-  const BotonContinuar({Key? key}) : super(key: key);
+  final Function onPressed;
+
+  const BotonContinuar({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<CubitRutas>().goPrimerInicioPantalla2();
+        onPressed();
       },
       child: Container(
         width: 315,
@@ -34,4 +33,3 @@ class BotonContinuar extends StatelessWidget {
     );
   }
 }
-
