@@ -44,7 +44,7 @@ class PrimerInicioPantalla2 extends StatelessWidget {
             left: 0.10.sw,
             child: BotonContinuar(
               onPressed: () {
-                context.read<CubitRutas>().goPrimerInicioPantalla1();
+                context.read<CubitRutas>().goPantalla1Menu();
               },
             ),
           ),

@@ -14,10 +14,16 @@ final _rutasPublicas = GoRouter(
       ),
       GoRoute(
           path: '/primer_inicio_pantalla2',
-          builder: (context, state) => PrimerInicioPantalla2(),)
+          builder: (context, state) => PrimerInicioPantalla2(),
+      ),
+      GoRoute(
+          path: '/pantalla1_menu',
+          builder: (context, state) => Pantalla1Menu(),
+      ),
     ] );
 
 class CubitRutas extends Cubit<GoRouter> {
+
   CubitRutas() : super(_rutasPublicas);
 
   void goPrimerInicioPantalla1() {
@@ -27,4 +33,9 @@ class CubitRutas extends Cubit<GoRouter> {
   void goPrimerInicioPantalla2() {
     state.go('/primer_inicio_pantalla2');
   }
+
+  void goPantalla1Menu() {
+    state.go('/Pantalla1_menu');
+  }
+
 }
