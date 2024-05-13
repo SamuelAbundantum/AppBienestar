@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../config/helpers/dbSambami.dart';
 import '../../config/helpers/helpers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../domain/entities/hora.dart';
 
 class BotonHora extends StatefulWidget {
   const BotonHora({Key? key}) : super(key: key);
@@ -10,13 +12,31 @@ class BotonHora extends StatefulWidget {
 }
 
 class _BotonHoraState extends State<BotonHora> {
-  late Stream<TimeOfDay> _horaSeleccionadaStream;
+  late Stream<TimeOfDay> _horaSeleccionadaStream = Stream<TimeOfDay>.value(TimeOfDay.now());
+  int idHora = 1; // Define un ID para la hora
 
   @override
   void initState() {
     super.initState();
-    _horaSeleccionadaStream = HoraHelper.horaSeleccionadaStream;
+    _inicializarHora(); // Llamada a la función para inicializar la hora
   }
+
+  void _inicializarHora() async {
+    // Verificar si ya existe una hora con el ID especificado
+    Hora horaExistente = await DB.getHora(idHora);
+
+    if (horaExistente.id != idHora) {
+      // Si no existe, insertar la hora actual
+      TimeOfDay horaActual = TimeOfDay.now();
+      Hora nuevaHora = Hora(id: idHora, hora: horaActual);
+      int insertedId = await DB.insertHora(nuevaHora);
+      print('Hora inicial insertada en la base de datos con ID $insertedId: ${nuevaHora.toMap()}');
+    } else {
+      print('La hora con ID $idHora ya existe en la base de datos: ${horaExistente.toMap()}');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +99,28 @@ class _BotonHoraState extends State<BotonHora> {
     );
 
     if (horaSeleccionada != null) {
-      await HoraHelper.guardarHoraSeleccionada(horaSeleccionada);
+      Hora hora = Hora(id: idHora, hora: horaSeleccionada);
+
+      // Verificar si la hora ya existe en la base de datos
+      Hora horaExistente = await DB.getHora(idHora);
+
+      if (horaExistente.id == idHora) {
+        // Si la hora ya existe, actualizarla
+        await DB.updateHora(hora);
+        print('Hora actualizada en la base de datos: ${hora.toMap()}');
+      } else {
+        // Si la hora no existe, insertarla
+        await DB.insertHora(hora);
+        print('Nueva hora insertada en la base de datos: ${hora.toMap()}');
+      }
+
+      setState(() {
+        _horaSeleccionadaStream = Stream<TimeOfDay>.value(horaSeleccionada);
+      });
     }
   }
+
+
+
+
 }

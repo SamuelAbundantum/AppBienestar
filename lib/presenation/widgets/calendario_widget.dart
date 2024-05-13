@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../config/helpers/csvLoader.dart';
+import '../../config/helpers/estadoDiarioLoader.dart';
 
 class CalendarioWidget extends StatelessWidget {
-  final CsvLoader _csvLoader = CsvLoader();
+  final estadoDiarioLoader _estadoDiarioLoader = estadoDiarioLoader();
   late Future<Map<DateTime, List<String>>> _eventsFuture;
 
-  CalendarioWidget({Key? key})
-      : super(key: key) {
-    _eventsFuture = _csvLoader.loadEvents();
+  CalendarioWidget({Key? key}) : super(key: key) {
+
+    _eventsFuture = _estadoDiarioLoader.loadEvents();
   }
 
   @override
@@ -21,8 +21,10 @@ class CalendarioWidget extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else if (snapshot.hasError) {
+          print('Error: ${snapshot.error}');
           return Text('Error: ${snapshot.error}');
         } else {
+          print('Eventos cargados2: ${snapshot.data}');
           return TableCalendar(
             locale: 'es_ES',
             rowHeight: 100,
@@ -40,17 +42,27 @@ class CalendarioWidget extends StatelessWidget {
             ),
             availableGestures: AvailableGestures.all,
             focusedDay: DateTime.now(),
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
+            firstDay: DateTime(2010, 10, 16),
+            lastDay: DateTime(2030, 3, 14),
             eventLoader: (day) {
-              print("Tipo de datos para el día ${day}: ${snapshot.data![day].runtimeType}");
-              return snapshot.data![day] ?? [];
+              // Eliminar la información de la hora de la fecha del día
+              DateTime dayWithoutTime = DateTime(day.year, day.month, day.day);
+
+              // Buscar eventos para el día (ignorando la información de la hora)
+              var eventsForDay = snapshot.data![dayWithoutTime] ?? [];
+              print("Día: $day");
+              print("Eventos para el día: $eventsForDay");
+              return eventsForDay;
             },
+
+
             calendarBuilders: CalendarBuilders(
               singleMarkerBuilder: (context, date, event) {
+                print("Evento: $event");
                 print("Tipo de datos para el evento: ${event.runtimeType}");
                 return Text(event.toString());  // Muestra la imagen.
               },
+
             ),
           );
         }
