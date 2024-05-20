@@ -21,6 +21,26 @@ class DB {
     );
   }
 
+  static Future<void> insertOrUpdateEstadoDiario(EstadoDiario estadoDiario) async {
+    Database database = await _openDB();
+
+    // Verificar si el estado diario ya existe en la base de datos
+    List<Map<String, dynamic>> result = await database.query(
+      'estadoDiario',
+      where: 'id = ?',
+      whereArgs: [estadoDiario.id],
+    );
+
+    if (result.isNotEmpty) {
+      // El estado diario ya existe, entonces actualízalo
+      await updateEstadoDiario(estadoDiario);
+    } else {
+      // El estado diario no existe, entonces insértalo
+      await insertEstadoDiario(estadoDiario);
+    }
+  }
+
+
   static Future<int> insertEstadoDiario (EstadoDiario estadoDiario) async{
       Database database = await _openDB();
 
@@ -68,7 +88,6 @@ class DB {
     if (maps.length > 0) {
       return Hora.fromMap(maps.first);
     } else {
-      // Si no se encuentra ninguna hora, devuelve la hora actual
       return Hora(id: id, hora: TimeOfDay.now());
     }
   }
@@ -82,7 +101,7 @@ class DB {
       return rowsAffected;
     } catch (e) {
       print('Error al actualizar la hora: $e');
-      return -1; // O cualquier valor que indique un error
+      return -1;
     }
   }
 

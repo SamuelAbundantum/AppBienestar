@@ -67,7 +67,7 @@ class estadoDiarioLoader {
 
     // Insertar eventos de prueba en la base de datos
     for (var evento in testData) {
-      await DB.insertEstadoDiario(evento);
+      await DB.insertOrUpdateEstadoDiario(evento);
     }
   }
 

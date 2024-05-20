@@ -6,8 +6,17 @@ class BotonGuardar extends StatelessWidget {
   final double largo;
   final double radio;
   final double tamanoTexto;
+  final bool enabled;
+  final VoidCallback? onPressed;
 
-  BotonGuardar({required this.ancho, required this.largo, required this.radio, required this.tamanoTexto});
+  BotonGuardar({
+    required this.ancho,
+    required this.largo,
+    required this.radio,
+    required this.tamanoTexto,
+    this.enabled = true,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +24,9 @@ class BotonGuardar extends StatelessWidget {
       width: ancho.w,
       height: largo.h,
       child: ElevatedButton(
-        onPressed: () {
-          // Aquí puedes definir qué quieres que suceda cuando se presione el botón
-        },
+        onPressed: enabled ? onPressed : null, // Usar el callback
         style: ElevatedButton.styleFrom(
-          primary: Colors.green, // Color de fondo
+          primary: enabled ? Colors.green : Colors.grey, // Color de fondo
           onPrimary: Colors.white, // Color del texto
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radio),

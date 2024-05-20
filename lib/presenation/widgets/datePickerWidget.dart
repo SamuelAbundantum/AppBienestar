@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importa la biblioteca intl
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Importa la biblioteca flutter_screenutil
-
 class FechaWidget extends StatefulWidget {
+  final ValueChanged<DateTime> onDateSelected;
+  FechaWidget({required this.onDateSelected});
   @override
   _FechaWidgetState createState() => _FechaWidgetState();
 }
-
 class _FechaWidgetState extends State<FechaWidget> {
   DateTime _fechaSeleccionada = DateTime.now();
-
   _seleccionarFecha(BuildContext context) async {
     final DateTime? fechaNueva = await showDatePicker(
       context: context,
@@ -17,19 +16,18 @@ class _FechaWidgetState extends State<FechaWidget> {
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
-
     if (fechaNueva != null) {
+      final fechaSinTiempo = DateTime(fechaNueva.year, fechaNueva.month, fechaNueva.day);
       setState(() {
-        _fechaSeleccionada = fechaNueva;
+        _fechaSeleccionada = fechaSinTiempo;
+        widget.onDateSelected(fechaSinTiempo); // Notificar la fecha sin hora
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     // Formatea la fecha para mostrar el día y el mes en texto con 'de' en medio
     String fechaFormateada = DateFormat('d \'de\' MMMM', 'es_ES').format(_fechaSeleccionada);
-
     return GestureDetector(
       onTap: () => _seleccionarFecha(context),
       child: Container(

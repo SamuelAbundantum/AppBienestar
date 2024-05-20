@@ -6,3 +6,6 @@ export 'widgetBarra.dart';
 export 'botonFlechaIzquierda.dart';
 export 'botonGuardarWidget.dart';
 export 'datePickerWidget.dart';
+export 'selectorEstadoWidget.dart';
+export 'estadoConCamaraWidget.dart';
+export 'selectFotoWidget.dart';

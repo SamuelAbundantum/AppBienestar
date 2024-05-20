@@ -33,7 +33,7 @@ class BarraDeTareas extends StatelessWidget {
               ],
             ),
             Align(
-              alignment: Alignment (0, -2.8),
+              alignment: Alignment(0, -2.8),
               child: Container(
                 height: 70.r,
                 width: 70.r,
