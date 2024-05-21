@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
-import '../../config/helpers/dbSambami.dart';
-import '../../config/helpers/helpers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../config/helpers/dbSambami.dart';
 import '../../domain/entities/hora.dart';
 
 class BotonHora extends StatefulWidget {
-  const BotonHora({Key? key}) : super(key: key);
+  final double width;
+  final double height;
+  final TextStyle textStyle;
+
+  const BotonHora({
+    Key? key,
+    this.width = 315.0,
+    this.height = 70.0,
+    required this.textStyle,
+  }) : super(key: key);
 
   @override
   _BotonHoraState createState() => _BotonHoraState();
 }
 
 class _BotonHoraState extends State<BotonHora> {
-  late Stream<TimeOfDay> _horaSeleccionadaStream = Stream<TimeOfDay>.value(TimeOfDay.now());
+  late Stream<TimeOfDay> _horaSeleccionadaStream =
+  Stream<TimeOfDay>.value(TimeOfDay.now());
   int idHora = 1; // Define un ID para la hora
 
   @override
@@ -30,13 +39,13 @@ class _BotonHoraState extends State<BotonHora> {
       TimeOfDay horaActual = TimeOfDay.now();
       Hora nuevaHora = Hora(id: idHora, hora: horaActual);
       int insertedId = await DB.insertHora(nuevaHora);
-      print('Hora inicial insertada en la base de datos con ID $insertedId: ${nuevaHora.toMap()}');
+      print(
+          'Hora inicial insertada en la base de datos con ID $insertedId: ${nuevaHora.toMap()}');
     } else {
-      print('La hora con ID $idHora ya existe en la base de datos: ${horaExistente.toMap()}');
+      print(
+          'La hora con ID $idHora ya existe en la base de datos: ${horaExistente.toMap()}');
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +54,15 @@ class _BotonHoraState extends State<BotonHora> {
         _selectorDeHora(context);
       },
       child: Container(
-        width: 315.w, // Utiliza .w para escalar el ancho de la pantalla
-        height: 70.h, // Utiliza .h para escalar la altura de la pantalla
+        width: widget.width.w, // Utiliza .w para escalar el ancho de la pantalla
+        height: widget.height.h, // Utiliza .h para escalar la altura de la pantalla
         decoration: BoxDecoration(
           color: Colors.amber,
-          borderRadius: BorderRadius.circular(18.w), // Utiliza .w para escalar el radio de borde
-          border: Border.all(color: Colors.white, width: 3.w), // Utiliza .w para escalar el ancho del borde
+          borderRadius: BorderRadius.circular(
+              18.w), // Utiliza .w para escalar el radio de borde
+          border: Border.all(
+              color: Colors.white,
+              width: 3.w), // Utiliza .w para escalar el ancho del borde
         ),
         child: StreamBuilder<TimeOfDay>(
           stream: _horaSeleccionadaStream,
@@ -60,28 +72,25 @@ class _BotonHoraState extends State<BotonHora> {
             } else if (snapshot.hasError) {
               return Text('Error al obtener la hora');
             } else {
-              TimeOfDay horaMostrada = snapshot.data ?? TimeOfDay.now();
+              TimeOfDay horaMostrada =
+                  snapshot.data ?? TimeOfDay.now();
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.notifications),
-                  SizedBox(width: 10.w), // Utiliza .w para escalar el espacio entre widgets
+                  SizedBox(
+                      width:
+                      10.w), // Utiliza .w para escalar el espacio entre widgets
                   Text(
                     horaMostrada.format(context),
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w900,
-                      fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
-                    ),
+                    style: widget.textStyle,
                   ),
-                  SizedBox(width: 70.w), // Utiliza .w para escalar el espacio entre widgets
+                  SizedBox(
+                      width:
+                      25.w), // Utiliza .w para escalar el espacio entre widgets
                   Text(
                     'Programar >',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w900,
-                      fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
-                    ),
+                    style: widget.textStyle,
                   ),
                 ],
               );
@@ -119,8 +128,4 @@ class _BotonHoraState extends State<BotonHora> {
       });
     }
   }
-
-
-
-
 }

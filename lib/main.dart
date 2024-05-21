@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proyectoabundantum_appbienestar/config/helpers/dbSambami.dart';
 import 'package:proyectoabundantum_appbienestar/config/router/rutas.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:proyectoabundantum_appbienestar/presenation/blocs/blocs.dart';
@@ -13,7 +14,7 @@ void main() {
     ),
   );
 
-  initializeDateFormatting('es'); // Inicializa los datos de localización para español de forma síncrona
+  initializeDateFormatting('es');
 
   runApp(const BlocsProvider());
 }

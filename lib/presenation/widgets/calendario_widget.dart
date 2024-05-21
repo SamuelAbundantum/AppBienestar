@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../config/helpers/estadoDiarioLoader.dart';
+import '../screens/screens.dart';
 
 class CalendarioWidget extends StatelessWidget {
   final estadoDiarioLoader _estadoDiarioLoader = estadoDiarioLoader();

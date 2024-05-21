@@ -40,6 +40,12 @@ class DB {
     }
   }
 
+  static Future<void> deleteAllEstadoDiario() async {
+    Database database = await _openDB();
+    await database.delete('estadoDiario');
+  }
+
+
 
   static Future<int> insertEstadoDiario (EstadoDiario estadoDiario) async{
       Database database = await _openDB();
@@ -51,6 +57,27 @@ class DB {
     Database database = await _openDB();
     return database.update('estadoDiario', estadoDiario.toMap(), where: 'id = ?', whereArgs: [estadoDiario.id]);
   }
+
+  static Future<EstadoDiario?> getEstadoDiarioById(int id) async {
+    Database database = await _openDB();
+    final List<Map<String, dynamic>> maps =
+    await database.query('estadoDiario', where: 'id = ?', whereArgs: [id]);
+
+    if (maps.length > 0) {
+      return EstadoDiario(
+        id: maps.first['id'],
+        comoEstasHoy: ComoEstasHoy.values.firstWhere((e) => e.toString() == maps.first['comoEstasHoy']),
+        comoTeSientes: ComoTeSientes.values.firstWhere((e) => e.toString() == maps.first['comoTeSientes']),
+        area: Area.values.firstWhere((e) => e.toString() == maps.first['area']),
+        texto: maps.first['texto'],
+        foto: maps.first['foto'],
+        fecha: DateTime.parse(maps.first['fecha']),
+      );
+    } else {
+      return null; // Si no se encuentra un estado diario con ese ID, devolver null
+    }
+  }
+
 
   static Future<List<EstadoDiario>> getAllEstadoDiario() async {
     Database database = await _openDB();

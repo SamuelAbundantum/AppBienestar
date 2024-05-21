@@ -51,7 +51,15 @@ class PrimerInicioPantalla2 extends StatelessWidget {
           Positioned(
             top: 0.68.sh,
             left: 0.07.sw,
-            child: BotonHora(),
+            child: BotonHora(
+              width: 300,
+              height: 65,
+              textStyle: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w900,
+                fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
+              ),
+            ),
           ),
           Positioned(
             top: 0.37.sh,
@@ -72,7 +80,7 @@ class PrimerInicioPantalla2 extends StatelessWidget {
             child: Container(
               width: 0.9.sw,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.20),
+                color:Colors.white.withOpacity(0.20),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Padding(
