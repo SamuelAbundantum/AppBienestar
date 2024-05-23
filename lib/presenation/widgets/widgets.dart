@@ -12,3 +12,4 @@ export 'selectFotoWidget.dart';
 export 'ajustesWidgetHora.dart';
 export 'botonContactos.dart';
 export 'enlacesLegalesWidget.dart';
+export 'statsWidget.dart';

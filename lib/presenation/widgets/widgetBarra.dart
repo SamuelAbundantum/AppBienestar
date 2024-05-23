@@ -59,7 +59,9 @@ class BarraDeTareas extends StatelessWidget {
                   IconButton(
                     iconSize: 40.r,
                     icon: Image.asset('assets/icons/stats.png'),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<CubitRutas>().goPantalla3Estadisticas();
+                    },
                   ),
                   IconButton(
                     iconSize: 40.r,

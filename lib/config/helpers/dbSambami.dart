@@ -40,6 +40,24 @@ class DB {
     }
   }
 
+  static Future<Map<String, int>> getEstadoDiarioCounts() async {
+    Database database = await _openDB();
+    final List<Map<String, dynamic>> estados = await database.query('estadoDiario');
+    Map<String, int> counts = {
+      'muyBien': 0,
+      'bien': 0,
+      'mal': 0,
+      'muyMal': 0,
+    };
+    for (var estado in estados) {
+      String estadoHoy = estado['comoEstasHoy'].toString().split('.').last;
+      if (counts.containsKey(estadoHoy)) {
+        counts[estadoHoy] = (counts[estadoHoy] ?? 0) + 1;
+      }
+    }
+    return counts;
+  }
+
   static Future<void> deleteAllEstadoDiario() async {
     Database database = await _openDB();
     await database.delete('estadoDiario');

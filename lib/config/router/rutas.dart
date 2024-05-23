@@ -27,6 +27,10 @@ final _rutasPublicas = GoRouter(
       GoRoute(
           path: '/pantalla4_ajustes',
           builder: (context, state) => Pantalla4Ajustes(),
+      ),
+      GoRoute(
+          path: '/pantalla3_estadisticas',
+          builder: (context, state) => Pantalla3Estadisticas(),
       )
     ] );
 
@@ -52,6 +56,10 @@ class CubitRutas extends Cubit<GoRouter> {
 
   void goPantalla4Ajustes() {
     state.go('/pantalla4_ajustes');
+  }
+
+  void goPantalla3Estadisticas() {
+    state.go('/pantalla3_estadisticas');
   }
 
 }
