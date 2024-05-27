@@ -67,7 +67,6 @@ class BarraDeTareas extends StatelessWidget {
                     iconSize: 40.r,
                     icon: Image.asset('assets/icons/videos.png'),
                     onPressed: () {
-                      DB.deleteAllEstadoDiario();
                     },
                   ),
                   SizedBox(width: 50.w),

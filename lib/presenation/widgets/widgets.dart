@@ -13,3 +13,4 @@ export 'ajustesWidgetHora.dart';
 export 'botonContactos.dart';
 export 'enlacesLegalesWidget.dart';
 export 'statsWidget.dart';
+export 'areasWidget.dart';

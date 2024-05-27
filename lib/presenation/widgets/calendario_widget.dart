@@ -10,7 +10,6 @@ class CalendarioWidget extends StatelessWidget {
   late Future<Map<DateTime, List<String>>> _eventsFuture;
 
   CalendarioWidget({Key? key}) : super(key: key) {
-
     _eventsFuture = _estadoDiarioLoader.loadEvents();
   }
 
@@ -46,24 +45,28 @@ class CalendarioWidget extends StatelessWidget {
             firstDay: DateTime(2010, 10, 16),
             lastDay: DateTime(2030, 3, 14),
             eventLoader: (day) {
-              // Eliminar la información de la hora de la fecha del día
               DateTime dayWithoutTime = DateTime(day.year, day.month, day.day);
-
-              // Buscar eventos para el día (ignorando la información de la hora)
               var eventsForDay = snapshot.data![dayWithoutTime] ?? [];
               print("Día: $day");
               print("Eventos para el día: $eventsForDay");
               return eventsForDay;
             },
-
-
+            onDaySelected: (selectedDay, focusedDay) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Pantalla2SeleccionDeEstado(
+                    selectedDate: selectedDay, // Pasar la fecha seleccionada a la nueva pantalla
+                  ),
+                ),
+              );
+            },
             calendarBuilders: CalendarBuilders(
               singleMarkerBuilder: (context, date, event) {
                 print("Evento: $event");
                 print("Tipo de datos para el evento: ${event.runtimeType}");
                 return Text(event.toString());  // Muestra la imagen.
               },
-
             ),
           );
         }

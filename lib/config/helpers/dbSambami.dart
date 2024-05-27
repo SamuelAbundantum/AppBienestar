@@ -58,6 +58,49 @@ class DB {
     return counts;
   }
 
+  static Future<Map<String, String>> getTopThreeEstadoDiarioCountsByArea() async {
+    Database database = await _openDB();
+    final List<Map<String, dynamic>> estados = await database.query('estadoDiario');
+    Map<String, Map<String, int>> counts = {
+      'alimentacionNutricion': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'crecimientoPersonal': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'cuerpoFisicoEnergiaVital': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'descansoSueno': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'dinero': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'espiritualidadFilosofia': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'familia': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'ocupacion': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'pareja': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'redesSociales': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'salud': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+      'sexualidadGeneral': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
+    };
+    for (var estado in estados) {
+      String area = estado['area'].toString().split('.').last;
+      String estadoHoy = estado['comoEstasHoy'].toString().split('.').last;
+      if (counts.containsKey(area)) {
+        counts[area]!['count'] = (counts[area]!['count'] ?? 0) + 1;
+        counts[area]![estadoHoy] = (counts[area]![estadoHoy] ?? 0) + 1;
+      }
+    }
+    // Convert the counts map to a list of entries and sort by 'count' in descending order
+    var sortedCounts = counts.entries.toList()
+      ..sort((a, b) => b.value['count']!.compareTo(a.value['count']!));
+    // Take the top three entries
+    var topThree = sortedCounts.take(3).toList();
+    Map<String, String> result = {};
+    for (var entry in topThree) {
+      var area = entry.key;
+      var data = entry.value;
+      var mostCommonState = data.entries
+          .where((entry) => entry.key != 'count')
+          .reduce((a, b) => a.value > b.value ? a : b);
+      result[area] = '${data['count']}, ${mostCommonState.key}';
+    }
+    return result;
+  }
+
+
   static Future<void> deleteAllEstadoDiario() async {
     Database database = await _openDB();
     await database.delete('estadoDiario');

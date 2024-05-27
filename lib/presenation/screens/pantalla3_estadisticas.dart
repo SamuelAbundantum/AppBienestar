@@ -68,6 +68,7 @@ class _Pantalla3EstadisticasState extends State<Pantalla3Estadisticas> {
                     children: [
                       PieChartSample(),
                       SizedBox(height: 35.h),
+                      TopThreeAreasWidget()
                     ],
                   ),
                 ),

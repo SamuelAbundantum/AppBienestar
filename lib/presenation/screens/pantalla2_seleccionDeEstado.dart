@@ -5,13 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/helpers/dbSambami.dart';
 import '../../config/router/rutas.dart';
 import '../../domain/entities/estadoDiario.dart';
-import '../widgets/widgets.dart'; // Asegúrate de importar tus widgets personalizados
+import '../widgets/widgets.dart';
 
 class Pantalla2SeleccionDeEstado extends StatefulWidget {
-  const Pantalla2SeleccionDeEstado({Key? key}) : super(key: key);
+  final DateTime selectedDate;
+
+  const Pantalla2SeleccionDeEstado({Key? key, required this.selectedDate}) : super(key: key);
+
   @override
   _Pantalla2SeleccionDeEstadoState createState() => _Pantalla2SeleccionDeEstadoState();
 }
+
 class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado> {
   bool _showFeelingSelector = false;
   int _selectedEstado = -1;
@@ -19,34 +23,45 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
   int _selectedArea = -1;
   File? _image;
   final TextEditingController _textController = TextEditingController();
-  DateTime _selectedDate = DateTime.now(); // Nueva variable para almacenar la fecha seleccionada
+  late DateTime _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = widget.selectedDate;
+  }
+
   void _onEstadoSelected(int index) {
     setState(() {
       _selectedEstado = index;
       if (index == 0 || index == 1) {
         _showFeelingSelector = true;
-        _selectedFeeling = -1; // Resetear selección de "¿Cómo te sientes?"
+        _selectedFeeling = -1;
       } else {
         _showFeelingSelector = false;
-        _selectedFeeling = -1; // Resetear selección de "¿Cómo te sientes?"
+        _selectedFeeling = -1;
       }
     });
   }
+
   void _onFeelingSelected(int index) {
     setState(() {
       _selectedFeeling = index;
     });
   }
+
   void _onAreaSelected(int index) {
     setState(() {
       _selectedArea = index;
     });
   }
+
   void _onImagePicked(File image) {
     setState(() {
       _image = image;
     });
   }
+
   bool _isFormValid() {
     if (_selectedEstado == -1 || _selectedArea == -1) {
       return false;
@@ -56,6 +71,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
     }
     return true;
   }
+
   Future<void> _onGuardarPressed() async {
     if (!_isFormValid()) return;
     final selectedDateWithoutTime = DateTime(
@@ -70,11 +86,10 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
       area: Area.values[_selectedArea],
       texto: _textController.text,
       foto: _image?.path ?? '',
-      fecha: selectedDateWithoutTime, // Usar la fecha sin hora
+      fecha: selectedDateWithoutTime,
     );
     await DB.insertOrUpdateEstadoDiario(estadoDiario);
-    // Aquí puedes manejar el objeto `estadoDiario`, por ejemplo, guardarlo en una base de datos o enviarlo a un servidor.
-    print(estadoDiario.toMap()); // Para depuración
+    print(estadoDiario.toMap());
 
     context.read<CubitRutas>().goPantalla1Menu();
   }
@@ -84,6 +99,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
       _selectedDate = date;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     bool isFormValid = _isFormValid();
@@ -110,22 +126,22 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                 largo: 30,
                 radio: 50,
                 tamanoTexto: 16,
-                enabled: isFormValid, // Pasar la propiedad enabled
-                onPressed: _onGuardarPressed, // Llamar a la función de guardar
+                enabled: isFormValid,
+                onPressed: _onGuardarPressed,
               ),
             ),
             Positioned(
               top: 30.h,
               left: 80.w,
               child: FechaWidget(
-                onDateSelected: _onDateSelected, // Pasar el callback para actualizar la fecha seleccionada
+                onDateSelected: _onDateSelected,
               ),
             ),
             Positioned(
               top: 100.h,
               left: 25.w,
               child: SizedBox(
-                height: 475.h, // Altura del área visible del ScrollView
+                height: 475.h,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -145,10 +161,10 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                         height: 100,
                         width: 300,
                         titulo: '¿Como estas hoy?',
-                        onIconSelected: _onEstadoSelected, // Agregar callback
+                        onIconSelected: _onEstadoSelected,
                       ),
                       SizedBox(height: 25.h),
-                      if (_showFeelingSelector) // Condicional para mostrar u ocultar
+                      if (_showFeelingSelector)
                         SelectorEstadoWidget(
                           iconPaths: [
                             'assets/icons/muyMal.png',
@@ -165,9 +181,9 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                           height: 100,
                           width: 300,
                           titulo: '¿Como te sientes?',
-                          onIconSelected: _onFeelingSelected, // Agregar callback
+                          onIconSelected: _onFeelingSelected,
                         ),
-                      SizedBox(height: 25.h), // Ajusta el espacio entre los widgets
+                      SizedBox(height: 25.h),
                       SelectorEstadoWidget(
                         iconPaths: [
                           'assets/icons/Alimentacion.png',
@@ -203,15 +219,15 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                         width: 300,
                         titulo: 'Área de la vida',
                         borderRadius: 50,
-                        onIconSelected: _onAreaSelected, // Agregar callback
+                        onIconSelected: _onAreaSelected,
                       ),
                       SizedBox(height: 25.h),
                       EstadoConCamaraWidget(
                         height: 300,
                         width: 300,
                         borderRadius: 25,
-                        onImagePicked: _onImagePicked, // Pasar el callback para actualizar la imagen
-                        textController: _textController, // Pasar el controlador de texto
+                        onImagePicked: _onImagePicked,
+                        textController: _textController,
                       ),
                       SizedBox(height: 25.h),
                       BotonGuardar(
@@ -219,16 +235,16 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                         largo: 60,
                         radio: 25,
                         tamanoTexto: 25,
-                        enabled: isFormValid, // Pasar la propiedad enabled
-                        onPressed: _onGuardarPressed, // Llamar a la función de guardar
+                        enabled: isFormValid,
+                        onPressed: _onGuardarPressed,
                       ),
-                      SizedBox(height: 25.h), // Espacio final opcional
+                      SizedBox(height: 25.h),
                     ],
                   ),
                 ),
               ),
             ),
-            BarraDeTareas(), // Añade la BarraDeTareas
+            BarraDeTareas(),
           ],
         ),
       ),

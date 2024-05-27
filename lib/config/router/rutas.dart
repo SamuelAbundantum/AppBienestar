@@ -22,7 +22,7 @@ final _rutasPublicas = GoRouter(
       ),
       GoRoute(
           path: '/pantalla2_seleccionDeEstado',
-          builder: (context, state) => Pantalla2SeleccionDeEstado(),
+          builder: (context, state) => Pantalla2SeleccionDeEstado(selectedDate: DateTime.now(),),
       ),
       GoRoute(
           path: '/pantalla4_ajustes',
