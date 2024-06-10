@@ -19,16 +19,16 @@ class estadoDiarioLoader {
       String emoji;
       switch (evento.comoEstasHoy) {
         case ComoEstasHoy.muyBien:
-          emoji = '😁';
+          emoji = 'VeryGood.svg';
           break;
         case ComoEstasHoy.bien:
-          emoji = '🙂';
+          emoji = 'Good.svg';
           break;
         case ComoEstasHoy.mal:
-          emoji = '☹️';
+          emoji = 'Bad.svg';
           break;
         case ComoEstasHoy.muyMal:
-          emoji = '😡';
+          emoji = 'VeryBad.svg';
           break;
         default:
           emoji = '';

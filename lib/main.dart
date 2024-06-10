@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:proyectoabundantum_appbienestar/config/helpers/dbSambami.dart';
 import 'package:proyectoabundantum_appbienestar/config/router/rutas.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:proyectoabundantum_appbienestar/presenation/blocs/blocs.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-
   initializeDateFormatting('es');
-
-  runApp(const BlocsProvider());
+  runApp(BlocsProvider());
 }
-
 
 class BlocsProvider extends StatelessWidget {
   const BlocsProvider({Key? key}) : super(key: key);
@@ -40,7 +37,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rutas = context.watch<CubitRutas>().state;
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);

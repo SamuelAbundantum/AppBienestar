@@ -87,7 +87,7 @@ class _PieChartSampleState extends State<PieChartSample> {
                           if (!event.isInterestedForInteractions ||
                               pieTouchResponse == null ||
                               pieTouchResponse.touchedSection == null) {
-                            touchedIndex = -1;
+                           touchedIndex = -1;
                             return;
                           }
                           touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
@@ -149,10 +149,10 @@ class _PieChartSampleState extends State<PieChartSample> {
       Color(0xFFE69296)
     ];
     List<String> icons = [
-      'assets/icons/muyBien.svg',
-      'assets/icons/bien.svg',
-      'assets/icons/mal.svg',
-      'assets/icons/muyMal.svg'
+      'assets/icons/VeryGood.svg',
+      'assets/icons/Good.svg',
+      'assets/icons/Bad.svg',
+      'assets/icons/VeryBad.svg'
     ];
     return List.generate(dataMap.length, (i) {
       final isTouched = i == touchedIndex;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyectoabundantum_appbienestar/config/helpers/dbSambami.dart';
+import 'package:proyectoabundantum_appbienestar/config/helpers/notificacionHelper.dart';
 
 import '../../config/router/rutas.dart';
 
@@ -67,13 +68,15 @@ class BarraDeTareas extends StatelessWidget {
                     iconSize: 40.r,
                     icon: Image.asset('assets/icons/videos.png'),
                     onPressed: () {
+                      context.read<CubitRutas>().goPantalla5Recomendaciones();
                     },
                   ),
                   SizedBox(width: 50.w),
                   IconButton(
                     iconSize: 40.r,
                     icon: Image.asset('assets/icons/chat.png'),
-                    onPressed: () {},
+                    onPressed: () {
+                    },
                   ),
                   IconButton(
                     iconSize: 40.r,

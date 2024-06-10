@@ -14,3 +14,6 @@ export 'botonContactos.dart';
 export 'enlacesLegalesWidget.dart';
 export 'statsWidget.dart';
 export 'areasWidget.dart';
+export 'videosYoutubeWidget.dart';
+export 'playerScreenWidget.dart';
+export 'gridCategoriasWidget.dart';

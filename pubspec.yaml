@@ -42,7 +42,6 @@ dependencies:
   path_provider: ^2.0.8
   flutter_screenutil: ^5.9.0
   table_calendar: ^3.1.1
-  csv: ^6.0.0
   sqflite: ^2.3.2
   google_fonts: ^6.2.0
   image_picker: ^1.0.8
@@ -51,6 +50,14 @@ dependencies:
   url_launcher_web: ^2.0.8
   fl_chart: ^0.68.0
   flutter_svg: ^2.0.10+1
+  permission_handler: ^10.0.0
+  media_kit: ^1.0.0
+  another_flushbar: ^1.12.30
+  shared_preferences: ^2.2.3
+  flutter_local_notifications: ^17.1.2
+  timezone: ^0.9.3
+  youtube_player_flutter: ^9.0.1
+  youtube_shorts: ^4.0.2
 
 dev_dependencies:
   flutter_test:

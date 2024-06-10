@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../config/helpers/estadoDiarioLoader.dart';
 import '../screens/screens.dart';
@@ -15,6 +16,8 @@ class CalendarioWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true);
+
     return FutureBuilder<Map<DateTime, List<String>>>(
       future: _eventsFuture,
       builder: (context, snapshot) {
@@ -27,15 +30,15 @@ class CalendarioWidget extends StatelessWidget {
           print('Eventos cargados2: ${snapshot.data}');
           return TableCalendar(
             locale: 'es_ES',
-            rowHeight: 100,
+            rowHeight: 85.h,
             startingDayOfWeek: StartingDayOfWeek.monday,
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
               titleTextStyle: TextStyle(fontSize: 24.sp),
-              headerPadding: EdgeInsets.all(16),
+              headerPadding: EdgeInsets.all(16.h),
             ),
-            daysOfWeekHeight: 24.sp,
+            daysOfWeekHeight: 24.h,
             daysOfWeekStyle: DaysOfWeekStyle(
               weekdayStyle: TextStyle(fontSize: 18.sp),
               weekendStyle: TextStyle(fontSize: 18.sp, color: Colors.red),
@@ -56,16 +59,32 @@ class CalendarioWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => Pantalla2SeleccionDeEstado(
-                    selectedDate: selectedDay, // Pasar la fecha seleccionada a la nueva pantalla
+                    selectedDate: selectedDay,
                   ),
                 ),
               );
             },
             calendarBuilders: CalendarBuilders(
-              singleMarkerBuilder: (context, date, event) {
-                print("Evento: $event");
-                print("Tipo de datos para el evento: ${event.runtimeType}");
-                return Text(event.toString());  // Muestra la imagen.
+              markerBuilder: (context, date, events) {
+                if (events.isNotEmpty) {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: 37.w,
+                          height: 37.h,
+                          child: SvgPicture.asset(
+                            'assets/icons/${events.first}',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Container();
               },
             ),
           );

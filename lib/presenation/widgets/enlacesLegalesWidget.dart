@@ -8,7 +8,7 @@ class EnlacesLegales extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () async {
-            await _launchURL('https://www.youtube.com/');
+            await _launchURL('https://www.abundantum.org/terminos-y-condiciones');
           },
           child: Text(
             'Términos y condiciones',

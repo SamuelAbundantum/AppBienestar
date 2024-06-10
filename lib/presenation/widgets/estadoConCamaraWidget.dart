@@ -114,69 +114,79 @@ class _EstadoConCamaraWidgetState extends State<EstadoConCamaraWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: _containerHeight + widget.height.h,
-      width: widget.width.w,
-      padding: EdgeInsets.all(8.0.r),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.black, width: 1),
-        borderRadius: BorderRadius.circular(widget.borderRadius.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: TextField(
-              controller: widget.textController,
-              maxLines: null,
-              expands: true,
-              minLines: null,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Escribe como te sientes...',
-                hintStyle: TextStyle(color: Colors.grey),
-                contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-              ),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Di algo...',
+          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 10.h),
+        Container(
+          height: _containerHeight + widget.height.h,
+          width: widget.width.w,
+          padding: EdgeInsets.all(8.0.r),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Colors.black, width: 1),
+            borderRadius: BorderRadius.circular(widget.borderRadius.r),
           ),
-          SizedBox(height: 8.h),
-          if (_image != null)
-            GestureDetector(
-              onTap: _showImageDialog,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(widget.borderRadius.r),
-                child: Image.file(
-                  _image!,
-                  fit: BoxFit.cover,
-                  height: 200.h, // Ajusta la altura de la imagen según tus necesidades
-                  width: widget.width.w, // Ajusta el ancho de la imagen según tus necesidades
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: widget.textController,
+                  maxLines: null,
+                  expands: true,
+                  minLines: null,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Escribe como te sientes...',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                  ),
                 ),
               ),
-            ),
-          if (_image != null)
-            SizedBox(height: 8.h),
-          GestureDetector(
-            onTap: _showPickerDialog,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  Icons.camera_alt,
-                  color: Colors.black,
-                  size: 24.w,
+              SizedBox(height: 8.h),
+              if (_image != null)
+                GestureDetector(
+                  onTap: _showImageDialog,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(widget.borderRadius.r),
+                    child: Image.file(
+                      _image!,
+                      fit: BoxFit.cover,
+                      height: 200.h, // Ajusta la altura de la imagen según tus necesidades
+                      width: widget.width.w, // Ajusta el ancho de la imagen según tus necesidades
+                    ),
+                  ),
                 ),
-                SizedBox(width: 4.w),
-                Text(
-                  'Elegir Foto',
-                  style: TextStyle(color: Colors.black),
+              if (_image != null)
+                SizedBox(height: 8.h),
+              GestureDetector(
+                onTap: _showPickerDialog,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.camera_alt,
+                      color: Colors.black,
+                      size: 24.w,
+                    ),
+                    SizedBox(width: 4.w),
+                    Text(
+                      'Elegir Foto',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(height: 8.h),
+            ],
           ),
-          SizedBox(height: 8.h),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

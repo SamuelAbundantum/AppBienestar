@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../config/helpers/dbSambami.dart';
 import '../../config/router/rutas.dart';
 import '../../domain/entities/estadoDiario.dart';
@@ -91,6 +92,18 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
     await DB.insertOrUpdateEstadoDiario(estadoDiario);
     print(estadoDiario.toMap());
 
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Guardado con éxito', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        duration: Duration(seconds: 1),
+      ),
+    );
+
     context.read<CubitRutas>().goPantalla1Menu();
   }
 
@@ -125,7 +138,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                 ancho: 100,
                 largo: 30,
                 radio: 50,
-                tamanoTexto: 16,
+                tamanoTexto: 15,
                 enabled: isFormValid,
                 onPressed: _onGuardarPressed,
               ),
@@ -147,10 +160,10 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                     children: [
                       SelectorEstadoWidget(
                         iconPaths: [
-                          'assets/icons/muyMal.png',
-                          'assets/icons/mal.png',
-                          'assets/icons/bien.png',
-                          'assets/icons/muyBien.png',
+                          'assets/icons/VeryBad.svg',
+                          'assets/icons/Bad.svg',
+                          'assets/icons/Good.svg',
+                          'assets/icons/VeryGood.svg',
                         ],
                         iconLabels: [
                           'Muy mal',
@@ -160,45 +173,45 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                         ],
                         height: 100,
                         width: 300,
-                        titulo: '¿Como estas hoy?',
+                        titulo: '¿Cómo estás hoy?',
                         onIconSelected: _onEstadoSelected,
                       ),
                       SizedBox(height: 25.h),
                       if (_showFeelingSelector)
                         SelectorEstadoWidget(
                           iconPaths: [
-                            'assets/icons/muyMal.png',
-                            'assets/icons/Triste.png',
-                            'assets/icons/Preocupado.png',
-                            'assets/icons/Frustrado.png',
+                            'assets/icons/Angry.svg',
+                            'assets/icons/Sad.svg',
+                            'assets/icons/Scared.svg',
+                            'assets/icons/Desperate.svg',
                           ],
                           iconLabels: [
                             'Enfadado',
                             'Triste',
-                            'Preocupado',
-                            'Frustrado',
+                            'Asustado',
+                            'Desesperado',
                           ],
                           height: 100,
                           width: 300,
-                          titulo: '¿Como te sientes?',
+                          titulo: '¿Cómo te sientes?',
                           onIconSelected: _onFeelingSelected,
                         ),
                       SizedBox(height: 25.h),
                       SelectorEstadoWidget(
                         iconPaths: [
-                          'assets/icons/Alimentacion.png',
-                          'assets/icons/CrecimientoPersonal.png',
-                          'assets/icons/Fisico.png',
-                          'assets/icons/Descanso.png',
-                          'assets/icons/Dinero.png',
-                          'assets/icons/Espiritualidad.png',
-                          'assets/icons/Familia.png',
-                          'assets/icons/Ocupacion.png',
-                          'assets/icons/Pareja.png',
-                          'assets/icons/RedesSociales.png',
-                          'assets/icons/Salud.png',
-                          'assets/icons/Sexualidad.png',
-                          'assets/icons/General.png',
+                          'assets/icons/Food.svg',
+                          'assets/icons/PersonalGrowth.svg',
+                          'assets/icons/Body&VitalEnergy.svg',
+                          'assets/icons/Rest&Sleep.svg',
+                          'assets/icons/Money.svg',
+                          'assets/icons/Spirituality.svg',
+                          'assets/icons/Family.svg',
+                          'assets/icons/Occupation.svg',
+                          'assets/icons/Partnership.svg',
+                          'assets/icons/SocialRelationship.svg',
+                          'assets/icons/Health.svg',
+                          'assets/icons/Sexuality.svg',
+                          'assets/icons/General.svg',
                         ],
                         iconLabels: [
                           'Alimentación y Nutrición',
@@ -210,7 +223,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                           'Familia',
                           'Ocupación',
                           'Pareja',
-                          'Redes Sociales',
+                          'Relaciones sociales',
                           'Salud',
                           'Sexualidad',
                           'General',

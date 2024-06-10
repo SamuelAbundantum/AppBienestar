@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelectorEstadoWidget extends StatefulWidget {
@@ -8,7 +9,7 @@ class SelectorEstadoWidget extends StatefulWidget {
   final double width;
   final String titulo;
   final double borderRadius;
-  final ValueChanged<int>? onIconSelected; // Callback para notificar la selección
+  final ValueChanged<int>? onIconSelected;
 
   SelectorEstadoWidget({
     required this.iconPaths,
@@ -17,7 +18,7 @@ class SelectorEstadoWidget extends StatefulWidget {
     required this.width,
     required this.titulo,
     this.borderRadius = 100.0,
-    this.onIconSelected, // Añadir el parámetro opcional
+    this.onIconSelected,
   });
 
   @override
@@ -58,7 +59,7 @@ class _SelectorEstadoWidgetState extends State<SelectorEstadoWidget> {
                         _selectedIcon = index;
                       });
                       if (widget.onIconSelected != null) {
-                        widget.onIconSelected!(index); // Notificar la selección
+                        widget.onIconSelected!(index);
                       }
                     },
                     child: Container(
@@ -71,7 +72,7 @@ class _SelectorEstadoWidgetState extends State<SelectorEstadoWidget> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Image.asset(
+                        child: SvgPicture.asset(
                           widget.iconPaths[index],
                           width: 50.w,
                           height: 50.h,
