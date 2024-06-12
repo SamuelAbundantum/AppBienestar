@@ -1,52 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:proyectoabundantum_appbienestar/config/router/rutas.dart';
-import 'package:proyectoabundantum_appbienestar/presenation/widgets/playerScreenWidget.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'botonesVideoMenuWidget.dart';
-import 'widgets.dart';
+import 'package:proyectoabundantum_appbienestar/presenation/widgets/widgets.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../../config/helpers/videosHelper.dart';
+import '../../config/router/rutas.dart';
+import '../../domain/entities/videos.dart';
 
-final videoUrls = [
-  'https://www.youtube.com/watch?v=RBiw9dwzAvY',
-  'https://www.youtube.com/watch?v=ra0QjuGlk7Y',
-  'https://www.youtube.com/watch?v=COgZyIeAIQ8',
-  'https://www.youtube.com/watch?v=FfZH84UlFDM',
-  'https://www.youtube.com/watch?v=cqVWsIvYfdw',
-  'https://www.youtube.com/watch?v=nNOdDtwY1uM',
-  'https://www.youtube.com/watch?v=rVPHZabCtCg',
-  'https://www.youtube.com/watch?v=0P8RVaAuvyA',
-  'https://www.youtube.com/watch?v=NUkLzN_Lxj0',
-  'https://www.youtube.com/watch?v=9ohn7SJr5T8',
-  'https://www.youtube.com/watch?v=z94QlTkcoiU',
-  'https://www.youtube.com/watch?v=LCaazlwyUqE',
-  'https://www.youtube.com/watch?v=tEZLOEJ6I8c'
-];
+class VideosYoutubeWidget extends StatefulWidget {
+  const VideosYoutubeWidget({Key? key}) : super(key: key);
 
-class VideosYoutubeWidget extends StatelessWidget {
-  const VideosYoutubeWidget({super.key});
+  @override
+  _VideosYoutubeWidgetState createState() => _VideosYoutubeWidgetState();
+}
+
+class _VideosYoutubeWidgetState extends State<VideosYoutubeWidget> {
+  String _selectedGenre = 'General'; // Default genre
+  Future<List<Video>>? _videosFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadVideos();
+  }
+
+  void _loadVideos() {
+    if (_selectedGenre == 'General') {
+      _videosFuture = VideoHelper.getAllVideos();
+    } else {
+      _videosFuture = VideoHelper.getVideosByGenre(_selectedGenre);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEAF2F8),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
         child: Column(
           children: [
-            // Fila para el botón de flecha izquierda y el texto "Vídeos" centrado
             Stack(
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Text(
                       'Vídeos',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
-                        fontSize: 24.sp,
+                        fontSize: 24.0,
                       ),
                     ),
                   ),
@@ -61,61 +66,105 @@ class VideosYoutubeWidget extends StatelessWidget {
                 ),
               ],
             ),
-            // Botón de menú centrado
             Center(
-              child: MenuButtons(), // Reemplaza con tu widget de botón de menú
-            ),
-            SizedBox(height: 20.h),
-            // Área de scroll con tamaño ajustado
-            Container(
-              height: MediaQuery.of(context).size.height * 0.62, // Ajusta este valor para cambiar el tamaño del scroll
-              child: GridView.builder(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16.w,
-                  mainAxisSpacing: 16.h,
-                  childAspectRatio: 16 / 9,
+              child: ElevatedButton(
+                onPressed: () => _showFilterPopup(context),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent, // Color del texto
+                  elevation: 3,
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15), // Bordes redondeados
+                  ),
+                  shadowColor: Colors.orangeAccent.withOpacity(0.5), // Sombra ligera
                 ),
-                itemCount: videoUrls.length,
-                itemBuilder: (context, index) {
-                  final videoID = YoutubePlayer.convertUrlToId(videoUrls[index]);
-                  return InkWell(
-                    onTap: () {
-                      if (videoID != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => PLayerScreen(videoId: videoID),
-                          ),
-                        );
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: videoID != null
-                          ? ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          YoutubePlayer.getThumbnail(videoId: videoID),
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return _thumbnailPlaceholder();
-                          },
+                child: Text(
+                  'Filtrar',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            FutureBuilder<List<Video>>(
+              future: _videosFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  final videos = snapshot.data!;
+                  return Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 80), // Aumenta el padding inferior para evitar superposición
+                      child: GridView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16.0,
+                          mainAxisSpacing: 16.0,
+                          childAspectRatio: 16 / 9,
                         ),
-                      )
-                          : _thumbnailPlaceholder(),
+                        itemCount: videos.length,
+                        itemBuilder: (context, index) {
+                          final video = videos[index];
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => PLayerScreen(
+                                    video: video,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.05),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  YoutubePlayer.getThumbnail(videoId: YoutubePlayer.convertUrlToId(video.url)!),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return _thumbnailPlaceholder();
+                                  },
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   );
-                },
-              ),
+                }
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _showFilterPopup(BuildContext context) async {
+    final selectedCategory = await showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return FilterPopup();
+      },
+    );
+
+    if (selectedCategory != null && selectedCategory != _selectedGenre) {
+      setState(() {
+        _selectedGenre = selectedCategory;
+        _loadVideos();
+      });
+    }
   }
 
   Widget _thumbnailPlaceholder() {

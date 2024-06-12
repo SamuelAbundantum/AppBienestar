@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../config/helpers/dbSambami.dart';
+import '../../config/helpers/videosHelper.dart';
 import '../../config/router/rutas.dart';
 import '../../domain/entities/estadoDiario.dart';
 import '../widgets/widgets.dart';
@@ -75,11 +75,13 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
 
   Future<void> _onGuardarPressed() async {
     if (!_isFormValid()) return;
+
     final selectedDateWithoutTime = DateTime(
       _selectedDate.year,
       _selectedDate.month,
       _selectedDate.day,
     );
+
     final estadoDiario = EstadoDiario(
       id: int.parse('${_selectedDate.day}${_selectedDate.month}${_selectedDate.year}'),
       comoEstasHoy: ComoEstasHoy.values[_selectedEstado],
@@ -89,6 +91,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
       foto: _image?.path ?? '',
       fecha: selectedDateWithoutTime,
     );
+
     await DB.insertOrUpdateEstadoDiario(estadoDiario);
     print(estadoDiario.toMap());
 
@@ -104,7 +107,20 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
       ),
     );
 
-    context.read<CubitRutas>().goPantalla1Menu();
+    // Lógica para mostrar el pop-up de video si el estado es "Mal" o "Muy mal"
+    if (_selectedEstado == 0 || _selectedEstado == 1) { // "Muy mal" o "Mal"
+      final area = Area.values[_selectedArea].toString().split('.').last;
+      final video = await VideoHelper.getRandomVideoByArea(area);
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return VideoPopup(video: video);
+        },
+      );
+    } else {
+      context.read<CubitRutas>().goPantalla1Menu();
+    }
   }
 
   void _onDateSelected(DateTime date) {

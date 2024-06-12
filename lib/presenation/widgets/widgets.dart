@@ -17,3 +17,5 @@ export 'areasWidget.dart';
 export 'videosYoutubeWidget.dart';
 export 'playerScreenWidget.dart';
 export 'gridCategoriasWidget.dart';
+export 'filterPopUp.dart';
+export 'videoPopUpWidget.dart';

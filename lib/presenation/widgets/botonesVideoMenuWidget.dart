@@ -10,7 +10,7 @@ class MenuButtons extends StatelessWidget {
       children: [ // Añadimos una separación entre las dos palabras
         GestureDetector(
           onTap: () {
-            context.read<CubitRutas>().goPantalla5Filtrar();
+            //context.read<CubitRutas>().goPantalla5Filtrar();
           },
           child: Text(
             'Filtrar',

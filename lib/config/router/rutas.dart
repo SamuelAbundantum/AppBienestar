@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:proyectoabundantum_appbienestar/presenation/screens/pantalla5_filtrar.dart';
 import '../../presenation/screens/screens.dart';
 
 final _rutasPublicas = GoRouter(
@@ -36,10 +35,6 @@ final _rutasPublicas = GoRouter(
       GoRoute(
           path: '/pantalla5_recomendaciones',
           builder: (context, state) => Pantalla5Recomendaciones(),
-      ),
-      GoRoute(
-        path: '/pantalla5_filtrar',
-        builder: (context, state) => Pantalla5Filtrar(),
       )
 
     ] );
@@ -74,10 +69,6 @@ class CubitRutas extends Cubit<GoRouter> {
 
   void goPantalla5Recomendaciones() {
     state.go('/pantalla5_recomendaciones');
-  }
-
-  void goPantalla5Filtrar() {
-    state.go('/pantalla5_filtrar');
   }
 
 }
