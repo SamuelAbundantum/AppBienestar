@@ -10,7 +10,6 @@ class ContactosBotones extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Título fuera del cuadro
         Text(
           'Contactos',
           style: TextStyle(
@@ -20,7 +19,6 @@ class ContactosBotones extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10.h),
-        // Cuadro principal con dos botones
         Container(
           padding: EdgeInsets.all(10.w),
           decoration: BoxDecoration(
@@ -33,14 +31,14 @@ class ContactosBotones extends StatelessWidget {
                 context,
                 'WhatsApp',
                 Icons.message,
-                'https://api.whatsapp.com/send/?phone=34613094585&text&type=phone_number&app_absent=0', // URL de WhatsApp
+                'https://api.whatsapp.com/send/?phone=34613094585&text&type=phone_number&app_absent=0',
               ),
               SizedBox(height: 20.h),
               _buildContactButton(
                 context,
                 'Correo',
                 Icons.email,
-                'mailto:example@example.com', // URL de Correo
+                'mailto:example@example.com',
               ),
             ],
           ),

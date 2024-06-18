@@ -24,13 +24,13 @@ class BotonGuardar extends StatelessWidget {
       width: ancho.w,
       height: largo.h,
       child: ElevatedButton(
-        onPressed: enabled ? onPressed : null, // Usar el callback
+        onPressed: enabled ? onPressed : null,
         style: ButtonStyle(
           backgroundColor: enabled
-              ? MaterialStateProperty.all(Colors.green) // Color de fondo
-              : MaterialStateProperty.all(Colors.grey),
-          foregroundColor: MaterialStateProperty.all(Colors.white), // Color del texto
-          shape: MaterialStateProperty.all(
+              ? WidgetStateProperty.all(Colors.green)
+              : WidgetStateProperty.all(Colors.grey),
+          foregroundColor: WidgetStateProperty.all(Colors.white),
+          shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(radio),
               side: BorderSide(color: Colors.black, width: 1),
@@ -41,7 +41,7 @@ class BotonGuardar extends StatelessWidget {
           'Guardar',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500, // Medium weight
+            fontWeight: FontWeight.w500,
             fontSize: tamanoTexto.sp,
           ),
         ),

@@ -9,7 +9,7 @@ class BotonFlechaIzquierda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back, size: 30.sp), // Este es el ícono de una flecha hacia la izquierda
+      icon: Icon(Icons.arrow_back, size: 30.sp),
       onPressed: () => onPressed(),
     );
   }

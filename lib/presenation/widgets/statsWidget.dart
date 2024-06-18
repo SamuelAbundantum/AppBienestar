@@ -2,10 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../config/helpers/dbSambami.dart';
 
 class PieChartSample extends StatefulWidget {
-  const PieChartSample({super.key});
+  final Map<String, int> dataMap;
+  const PieChartSample({super.key, required this.dataMap});
 
   @override
   State<StatefulWidget> createState() => _PieChartSampleState();
@@ -21,11 +21,18 @@ class _PieChartSampleState extends State<PieChartSample> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    processData(widget.dataMap);
   }
 
-  Future<void> fetchData() async {
-    Map<String, int> counts = await DB.getEstadoDiarioCounts();
+  @override
+  void didUpdateWidget(PieChartSample oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.dataMap != widget.dataMap) {
+      processData(widget.dataMap);
+    }
+  }
+
+  void processData(Map<String, int> counts) {
     int total = counts.values.fold(0, (sum, value) => sum + value);
     dataMap = counts.map((key, value) => MapEntry(key, (value / total) * 100));
     if (dataMap.isNotEmpty) {
@@ -87,7 +94,7 @@ class _PieChartSampleState extends State<PieChartSample> {
                           if (!event.isInterestedForInteractions ||
                               pieTouchResponse == null ||
                               pieTouchResponse.touchedSection == null) {
-                           touchedIndex = -1;
+                            touchedIndex = -1;
                             return;
                           }
                           touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
@@ -101,7 +108,7 @@ class _PieChartSampleState extends State<PieChartSample> {
                   ),
                 ),
               ),
-              SizedBox(height: 2.h), // Incrementa el espacio entre el pastel y el texto
+              SizedBox(height: 2.h),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(

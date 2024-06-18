@@ -19,3 +19,4 @@ export 'playerScreenWidget.dart';
 export 'gridCategoriasWidget.dart';
 export 'filterPopUp.dart';
 export 'videoPopUpWidget.dart';
+export 'selectorMesWidget.dart';

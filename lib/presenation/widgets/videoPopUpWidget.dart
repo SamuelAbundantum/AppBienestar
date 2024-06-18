@@ -25,10 +25,9 @@ class _VideoPopupState extends State<VideoPopup> {
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
-        // Esto permite el modo de pantalla completa
         enableCaption: false,
         isLive: false,
-        showLiveFullscreenButton: true, // Esto desactiva el botón de pantalla completa
+        showLiveFullscreenButton: true,
       ),
     );
   }

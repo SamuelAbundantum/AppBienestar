@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../config/helpers/dbSambami.dart';
+
 
 class TopThreeAreasWidget extends StatefulWidget {
-  const TopThreeAreasWidget({super.key});
+  final Map<String, String> topThreeData;
+  const TopThreeAreasWidget({super.key, required this.topThreeData});
 
   @override
   State<StatefulWidget> createState() => _TopThreeAreasWidgetState();
@@ -15,17 +16,19 @@ class _TopThreeAreasWidgetState extends State<TopThreeAreasWidget> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    topThreeData = widget.topThreeData;
   }
 
-  Future<void> fetchData() async {
-    topThreeData = await DB.getTopThreeEstadoDiarioCountsByArea();
-    print("Fetched Data: $topThreeData");
-    setState(() {});
+  @override
+  void didUpdateWidget(TopThreeAreasWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.topThreeData != widget.topThreeData) {
+      topThreeData = widget.topThreeData;
+      setState(() {});
+    }
   }
 
   Color getColorByState(String state) {
-    print("Getting color for state: $state");
     switch (state) {
       case 'muyBien':
         return Color(0xFFF8DE68);
@@ -36,7 +39,7 @@ class _TopThreeAreasWidgetState extends State<TopThreeAreasWidget> {
       case 'muyMal':
         return Color(0xFFE69296);
       default:
-        return Colors.grey; // Color por defecto si el estado no coincide
+        return Colors.grey;
     }
   }
 
@@ -89,13 +92,11 @@ class _TopThreeAreasWidgetState extends State<TopThreeAreasWidget> {
                 : topThreeData.entries.map((entry) {
               List<String> values = entry.value.split(', ');
               if (values.length < 2) {
-                print("Invalid data format for entry: ${entry.value}");
-                return SizedBox.shrink(); // Skip invalid entries
+                return SizedBox.shrink();
               }
               String count = values[0];
               String state = values[1];
               Color color = getColorByState(state);
-              print("Entry: ${entry.key}, Count: $count, State: $state, Color: $color");
               return Container(
                 margin: EdgeInsets.symmetric(vertical: 10.h),
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),

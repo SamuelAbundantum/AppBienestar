@@ -19,7 +19,7 @@ class GridCategoriasWidget extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 16.w,
           mainAxisSpacing: 16.h,
-          childAspectRatio: 0.9, // Ajusta este valor para cambiar el tamaño del scroll
+          childAspectRatio: 0.9,
         ),
         itemCount: categorias.length,
         itemBuilder: (context, index) {

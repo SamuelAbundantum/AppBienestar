@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'boton_hora.dart'; // Asegúrate de que la ruta sea correcta para importar el archivo
+import 'boton_hora.dart';
 
 class AjustesWidgetHora extends StatefulWidget {
   const AjustesWidgetHora({Key? key}) : super(key: key);
@@ -17,7 +17,6 @@ class _AjustesWidgetHoraState extends State<AjustesWidgetHora> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Título fuera del cuadro
         Text(
           'Hora de notificación',
           style: TextStyle(
@@ -27,7 +26,6 @@ class _AjustesWidgetHoraState extends State<AjustesWidgetHora> {
           ),
         ),
         SizedBox(height: 10.h),
-        // Cuadro principal con BotonHora y Rectángulo con Switch
         Container(
           padding: EdgeInsets.all(10.w),
           decoration: BoxDecoration(
@@ -42,17 +40,17 @@ class _AjustesWidgetHoraState extends State<AjustesWidgetHora> {
                 textStyle: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w900,
-                  fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
+                  fontSize: 20.sp,
                 ),
-              ), // Widget de hora importado
+              ),
               SizedBox(height: 20.h),
               // Rectángulo con Switch
               Container(
-                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w), // Reducir padding para hacerlo más fino
+                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50.w),
-                  border: Border.all(color: Colors.black), // Borde negro opcional
+                  border: Border.all(color: Colors.black),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,11 +60,11 @@ class _AjustesWidgetHoraState extends State<AjustesWidgetHora> {
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
-                        fontSize: 16.sp, // Reducir tamaño de fuente si es necesario
+                        fontSize: 16.sp,
                       ),
                     ),
                     Transform.scale(
-                      scale: 1.5, // Ajusta este valor para cambiar el tamaño del Switch
+                      scale: 1.5,
                       child: Switch(
                         value: _isSwitchOn,
                         onChanged: (bool value) {

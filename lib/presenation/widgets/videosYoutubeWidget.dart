@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proyectoabundantum_appbienestar/presenation/widgets/widgets.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../config/helpers/videosHelper.dart';
@@ -15,7 +14,7 @@ class VideosYoutubeWidget extends StatefulWidget {
 }
 
 class _VideosYoutubeWidgetState extends State<VideosYoutubeWidget> {
-  String _selectedGenre = 'General'; // Default genre
+  String _selectedGenre = 'General';
   Future<List<Video>>? _videosFuture;
 
   @override
@@ -70,13 +69,13 @@ class _VideosYoutubeWidgetState extends State<VideosYoutubeWidget> {
               child: ElevatedButton(
                 onPressed: () => _showFilterPopup(context),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent, // Color del texto
+                  foregroundColor: Colors.white, backgroundColor: Colors.orangeAccent,
                   elevation: 3,
                   padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15), // Bordes redondeados
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  shadowColor: Colors.orangeAccent.withOpacity(0.5), // Sombra ligera
+                  shadowColor: Colors.orangeAccent.withOpacity(0.5),
                 ),
                 child: Text(
                   'Filtrar',
@@ -99,7 +98,7 @@ class _VideosYoutubeWidgetState extends State<VideosYoutubeWidget> {
                   final videos = snapshot.data!;
                   return Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 80), // Aumenta el padding inferior para evitar superposición
+                      padding: const EdgeInsets.only(bottom: 80),
                       child: GridView.builder(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

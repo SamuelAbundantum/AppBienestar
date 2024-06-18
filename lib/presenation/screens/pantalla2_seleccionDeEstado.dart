@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import '../../config/helpers/dbSambami.dart';
 import '../../config/helpers/videosHelper.dart';
 import '../../config/router/rutas.dart';
@@ -10,7 +12,6 @@ import '../widgets/widgets.dart';
 
 class Pantalla2SeleccionDeEstado extends StatefulWidget {
   final DateTime selectedDate;
-
   const Pantalla2SeleccionDeEstado({Key? key, required this.selectedDate}) : super(key: key);
 
   @override
@@ -25,11 +26,28 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
   File? _image;
   final TextEditingController _textController = TextEditingController();
   late DateTime _selectedDate;
+  bool _isKeyboardVisible = false;
+  late KeyboardVisibilityController _keyboardVisibilityController;
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
 
   @override
   void initState() {
     super.initState();
     _selectedDate = widget.selectedDate;
+
+    _keyboardVisibilityController = KeyboardVisibilityController();
+    _keyboardVisibilitySubscription = _keyboardVisibilityController.onChange.listen((bool visible) {
+      setState(() {
+        _isKeyboardVisible = visible;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _keyboardVisibilitySubscription.cancel();
+    _textController.dispose();
+    super.dispose();
   }
 
   void _onEstadoSelected(int index) {
@@ -107,11 +125,9 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
       ),
     );
 
-    // Lógica para mostrar el pop-up de video si el estado es "Mal" o "Muy mal"
-    if (_selectedEstado == 0 || _selectedEstado == 1) { // "Muy mal" o "Mal"
+    if (_selectedEstado == 0 || _selectedEstado == 1) {
       final area = Area.values[_selectedArea].toString().split('.').last;
       final video = await VideoHelper.getRandomVideoByArea(area);
-
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -132,6 +148,8 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
   @override
   Widget build(BuildContext context) {
     bool isFormValid = _isFormValid();
+    final double bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return Scaffold(
       backgroundColor: const Color(0xFFEAF2F8),
       body: Padding(
@@ -185,7 +203,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                           'Muy mal',
                           'Mal',
                           'Bien',
-                          'Muy bien',
+                          'Muy bien'
                         ],
                         height: 100,
                         width: 300,
@@ -205,7 +223,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                             'Enfadado',
                             'Triste',
                             'Asustado',
-                            'Desesperado',
+                            'Desesperado'
                           ],
                           height: 100,
                           width: 300,
@@ -273,7 +291,17 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                 ),
               ),
             ),
-            BarraDeTareas(),
+            if (!_isKeyboardVisible)
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 200),
+                bottom: -50.h,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: bottomPadding),
+                  child: BarraDeTareas(),
+                ),
+              ),
           ],
         ),
       ),

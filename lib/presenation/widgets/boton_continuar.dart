@@ -13,8 +13,8 @@ class BotonContinuar extends StatelessWidget {
         onPressed();
       },
       child: Container(
-        width: 285.w, // Utiliza .w para escalar el ancho de la pantalla
-        height: 55.h, // Utiliza .h para escalar la altura de la pantalla
+        width: 285.w,
+        height: 55.h,
         decoration: BoxDecoration(
           color: Colors.amber,
           borderRadius: BorderRadius.circular(50),
@@ -26,7 +26,7 @@ class BotonContinuar extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w900,
-              fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
+              fontSize: 20.sp,
             ),
           ),
         ),

@@ -68,7 +68,7 @@ class _EstadoConCamaraWidgetState extends State<EstadoConCamaraWidget> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-        widget.onImagePicked(_image!); // Notificar la imagen seleccionada
+        widget.onImagePicked(_image!);
       }
     });
   }
@@ -157,8 +157,8 @@ class _EstadoConCamaraWidgetState extends State<EstadoConCamaraWidget> {
                     child: Image.file(
                       _image!,
                       fit: BoxFit.cover,
-                      height: 200.h, // Ajusta la altura de la imagen según tus necesidades
-                      width: widget.width.w, // Ajusta el ancho de la imagen según tus necesidades
+                      height: 200.h,
+                      width: widget.width.w,
                     ),
                   ),
                 ),

@@ -4,13 +4,10 @@ import 'dbSambami.dart';
 class estadoDiarioLoader {
   Future<Map<DateTime, List<String>>> loadEvents() async {
 
-    // Consultar eventos desde la base de datos
     List<EstadoDiario> eventosDB = await DB.getAllEstadoDiario();
 
-    // Procesar los resultados de la consulta
     Map<DateTime, List<String>> eventos = {};
 
-    // Convertir los eventos de la base de datos al formato esperado por el widget de calendario
     for (var evento in eventosDB) {
 
       DateTime fecha= DateTime(evento.fecha.year, evento.fecha.month, evento.fecha.day);
@@ -62,10 +59,8 @@ class estadoDiarioLoader {
         foto: 'foto.jpg',
         fecha: DateTime(2024, 5, 3),
       ),
-      // ...otros eventos de prueba
     ];
 
-    // Insertar eventos de prueba en la base de datos
     for (var evento in testData) {
       await DB.insertOrUpdateEstadoDiario(evento);
     }

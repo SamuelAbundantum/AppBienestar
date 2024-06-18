@@ -22,20 +22,18 @@ class BotonHora extends StatefulWidget {
 class _BotonHoraState extends State<BotonHora> {
   late Stream<TimeOfDay> _horaSeleccionadaStream =
   Stream<TimeOfDay>.value(TimeOfDay.now());
-  int idHora = 1; // Define un ID para la hora
+  int idHora = 1;
 
   @override
   void initState() {
     super.initState();
-    _inicializarHora(); // Llamada a la función para inicializar la hora
+    _inicializarHora();
   }
 
   void _inicializarHora() async {
-    // Verificar si ya existe una hora con el ID especificado
     Hora horaExistente = await DB.getHora(idHora);
 
     if (horaExistente.id != idHora) {
-      // Si no existe, insertar la hora actual
       TimeOfDay horaActual = TimeOfDay.now();
       Hora nuevaHora = Hora(id: idHora, hora: horaActual);
       int insertedId = await DB.insertHora(nuevaHora);
@@ -54,15 +52,15 @@ class _BotonHoraState extends State<BotonHora> {
         _selectorDeHora(context);
       },
       child: Container(
-        width: widget.width.w, // Utiliza .w para escalar el ancho de la pantalla
-        height: widget.height.h, // Utiliza .h para escalar la altura de la pantalla
+        width: widget.width.w,
+        height: widget.height.h,
         decoration: BoxDecoration(
           color: Colors.amber,
           borderRadius: BorderRadius.circular(
-              18.w), // Utiliza .w para escalar el radio de borde
+              18.w),
           border: Border.all(
               color: Colors.white,
-              width: 3.w), // Utiliza .w para escalar el ancho del borde
+              width: 3.w),
         ),
         child: StreamBuilder<TimeOfDay>(
           stream: _horaSeleccionadaStream,
@@ -80,14 +78,14 @@ class _BotonHoraState extends State<BotonHora> {
                   Icon(Icons.notifications),
                   SizedBox(
                       width:
-                      10.w), // Utiliza .w para escalar el espacio entre widgets
+                      10.w),
                   Text(
                     horaMostrada.format(context),
                     style: widget.textStyle,
                   ),
                   SizedBox(
                       width:
-                      25.w), // Utiliza .w para escalar el espacio entre widgets
+                      25.w),
                   Text(
                     'Programar >',
                     style: widget.textStyle,
@@ -110,15 +108,12 @@ class _BotonHoraState extends State<BotonHora> {
     if (horaSeleccionada != null) {
       Hora hora = Hora(id: idHora, hora: horaSeleccionada);
 
-      // Verificar si la hora ya existe en la base de datos
       Hora horaExistente = await DB.getHora(idHora);
 
       if (horaExistente.id == idHora) {
-        // Si la hora ya existe, actualizarla
         await DB.updateHora(hora);
         print('Hora actualizada en la base de datos: ${hora.toMap()}');
       } else {
-        // Si la hora no existe, insertarla
         await DB.insertHora(hora);
         print('Nueva hora insertada en la base de datos: ${hora.toMap()}');
       }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../../domain/entities/videos.dart'; // Asegúrate de importar la clase Video
+import '../../domain/entities/videos.dart';
 
 class PLayerScreen extends StatefulWidget {
   const PLayerScreen({
@@ -35,22 +35,22 @@ class _PLayerScreenState extends State<PLayerScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Alineación a la izquierda
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             YoutubePlayer(controller: _controller),
             const SizedBox(height: 16),
             Container(
-              padding: const EdgeInsets.all(12), // Espaciado interno
-              margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8), // Margen
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10), // Bordes redondeados
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3), // Desplazamiento de la sombra
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -63,17 +63,17 @@ class _PLayerScreenState extends State<PLayerScreen> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(12), // Espaciado interno
-              margin: const EdgeInsets.only(left: 8, right: 8), // Margen
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(left: 8, right: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10), // Bordes redondeados
+                borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3), // Desplazamiento de la sombra
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),

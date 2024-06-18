@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import '../../domain/entities/videos.dart';
 
 class VideoHelper {
@@ -10,7 +9,6 @@ class VideoHelper {
     final response = await http.get(Uri.parse(_apiUrl));
 
     if (response.statusCode == 200) {
-      // Decodificación UTF-8 de la respuesta
       final utf8DecodedBody = utf8.decode(response.bodyBytes);
       final jsonData = json.decode(utf8DecodedBody)['areas'];
 
@@ -40,7 +38,6 @@ class VideoHelper {
     final response = await http.get(Uri.parse(_apiUrl));
 
     if (response.statusCode == 200) {
-      // Decodificación UTF-8 de la respuesta
       final utf8DecodedBody = utf8.decode(response.bodyBytes);
       final jsonData = json.decode(utf8DecodedBody)['areas'];
 
@@ -50,7 +47,7 @@ class VideoHelper {
           for (final videoJson in areaJson['videos']) {
             genreVideos.add(Video.fromJson(videoJson));
           }
-          break; // Una vez encontrado el área deseada, salimos del bucle
+          break;
         }
       }
       return genreVideos;
@@ -63,7 +60,6 @@ class VideoHelper {
     final response = await http.get(Uri.parse(_apiUrl));
 
     if (response.statusCode == 200) {
-      // Decodificación UTF-8 de la respuesta
       final utf8DecodedBody = utf8.decode(response.bodyBytes);
       final jsonData = json.decode(utf8DecodedBody)['areas'];
 
@@ -73,11 +69,10 @@ class VideoHelper {
           for (final videoJson in areaJson['videos']) {
             areaVideos.add(Video.fromJson(videoJson));
           }
-          break; // Una vez encontrado el área deseada, salimos del bucle
+          break;
         }
       }
 
-      // Si no se encuentran videos específicos, devolver uno aleatorio de cualquier área
       if (areaVideos.isEmpty) {
         areaVideos = await getAllVideos();
       }

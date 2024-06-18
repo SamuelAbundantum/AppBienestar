@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/router/rutas.dart';
-import '../widgets/widgets.dart'; // Asegúrate de importar tus widgets personalizados
+import '../widgets/widgets.dart';
 
 class Pantalla4Ajustes extends StatefulWidget {
   const Pantalla4Ajustes({Key? key}) : super(key: key);
@@ -37,8 +37,8 @@ class _Pantalla4AjustesState extends State<Pantalla4Ajustes> {
                 child: Text(
                   'Ajustes',
                   style: TextStyle(
-                    fontSize: 24.sp, // Tamaño grande
-                    fontWeight: FontWeight.w600, // Semi bold
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -48,23 +48,23 @@ class _Pantalla4AjustesState extends State<Pantalla4Ajustes> {
               top: 100.h,
               left: 25.w,
               right: 25.w,
-              bottom: 100.h, // Ajusta el bottom para no cubrir la barra de tareas
+              bottom: 100.h,
               child: SizedBox(
-                height: 475.h, // Altura del área visible del ScrollView
+                height: 475.h,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       AjustesWidgetHora(),
-                      SizedBox(height: 40.h), // Espacio entre los widgets
+                      SizedBox(height: 40.h),
                       ContactosBotones(),
-                      SizedBox(height: 35.h), // Espacio entre los widgets y los enlaces legales
-                      EnlacesLegales(), // Agregar los enlaces legales
+                      SizedBox(height: 35.h),
+                      EnlacesLegales(),
                     ],
                   ),
                 ),
               ),
             ),
-            BarraDeTareas(), // Añade la BarraDeTareas si es necesario
+            BarraDeTareas(),
           ],
         ),
       ),

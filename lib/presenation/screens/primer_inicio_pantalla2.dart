@@ -57,7 +57,7 @@ class PrimerInicioPantalla2 extends StatelessWidget {
               textStyle: TextStyle(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w900,
-                fontSize: 20.sp, // Utiliza .sp para escalar el tamaño de la fuente
+                fontSize: 20.sp,
               ),
             ),
           ),

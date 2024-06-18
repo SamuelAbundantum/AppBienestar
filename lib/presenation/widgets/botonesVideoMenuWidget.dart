@@ -7,7 +7,7 @@ class MenuButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [ // Añadimos una separación entre las dos palabras
+      children: [
         GestureDetector(
           onTap: () {
             //context.read<CubitRutas>().goPantalla5Filtrar();
@@ -15,8 +15,8 @@ class MenuButtons extends StatelessWidget {
           child: Text(
             'Filtrar',
             style: TextStyle(
-              fontFamily: 'Poppins', // Usamos 'Poppins' directamente
-              fontSize: 20, // Aumentamos el tamaño de la fuente
+              fontFamily: 'Poppins',
+              fontSize: 20,
               color: Colors.black,
             ),
           ),

@@ -9,7 +9,6 @@ class PrimerInicioPantalla1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Inicializar flutter_screenutil
     ScreenUtil.init(context);
 
     return Scaffold(
@@ -17,12 +16,12 @@ class PrimerInicioPantalla1 extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: -0.29.sh, // Utiliza .sh para escalar el tamaño de la pantalla
-            left: 0.01.sw, // Utiliza .sw para escalar el ancho de la pantalla
+            top: -0.29.sh,
+            left: 0.01.sw,
             child: Image.asset(
               'assets/images/SAMBAMI.png',
-              width: 1.sw, // Utiliza .sw para escalar el ancho de la pantalla
-              height: 1.sh, // Utiliza .sh para escalar el tamaño de la pantalla
+              width: 1.sw,
+              height: 1.sh,
             ),
           ),
           Padding(
@@ -33,7 +32,7 @@ class PrimerInicioPantalla1 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RectanguloPequenyoIndicador(color: Colors.black),
-                    SizedBox(width: 30.w), // Utiliza .w para escalar el ancho de la pantalla
+                    SizedBox(width: 30.w),
                     RectanguloPequenyoIndicador(color: Colors.grey),
                   ],
                 ),
@@ -56,7 +55,7 @@ class PrimerInicioPantalla1 extends StatelessWidget {
               'Bienvenido a',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 32.sp, // Utiliza .sp para escalar el tamaño de la fuente
+                fontSize: 32.sp,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins',
               ),
@@ -69,7 +68,7 @@ class PrimerInicioPantalla1 extends StatelessWidget {
               'Sambami Paz Interior',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 32.sp, // Utiliza .sp para escalar el tamaño de la fuente
+                fontSize: 32.sp,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins',
               ),

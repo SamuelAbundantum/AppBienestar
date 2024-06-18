@@ -24,7 +24,6 @@ class DB {
   static Future<void> insertOrUpdateEstadoDiario(EstadoDiario estadoDiario) async {
     Database database = await _openDB();
 
-    // Verificar si el estado diario ya existe en la base de datos
     List<Map<String, dynamic>> result = await database.query(
       'estadoDiario',
       where: 'id = ?',
@@ -32,17 +31,17 @@ class DB {
     );
 
     if (result.isNotEmpty) {
-      // El estado diario ya existe, entonces actualízalo
       await updateEstadoDiario(estadoDiario);
     } else {
-      // El estado diario no existe, entonces insértalo
       await insertEstadoDiario(estadoDiario);
     }
   }
 
-  static Future<Map<String, int>> getEstadoDiarioCounts() async {
+  static Future<Map<String, int>> getEstadoDiarioCounts(int month) async {
     Database database = await _openDB();
-    final List<Map<String, dynamic>> estados = await database.query('estadoDiario');
+    final List<Map<String, dynamic>> estados = await database.rawQuery(
+      'SELECT * FROM estadoDiario WHERE strftime("%m", fecha) = ?', [month.toString().padLeft(2, '0')],
+    );
     Map<String, int> counts = {
       'muyBien': 0,
       'bien': 0,
@@ -58,9 +57,11 @@ class DB {
     return counts;
   }
 
-  static Future<Map<String, String>> getTopThreeEstadoDiarioCountsByArea() async {
+  static Future<Map<String, String>> getTopThreeEstadoDiarioCountsByArea(int month) async {
     Database database = await _openDB();
-    final List<Map<String, dynamic>> estados = await database.query('estadoDiario');
+    final List<Map<String, dynamic>> estados = await database.rawQuery(
+      'SELECT * FROM estadoDiario WHERE strftime("%m", fecha) = ?', [month.toString().padLeft(2, '0')],
+    );
     Map<String, Map<String, int>> counts = {
       'alimentacionNutricion': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
       'crecimientoPersonal': {'count': 0, 'muyBien': 0, 'bien': 0, 'mal': 0, 'muyMal': 0},
@@ -83,7 +84,6 @@ class DB {
         counts[area]![estadoHoy] = (counts[area]![estadoHoy] ?? 0) + 1;
       }
     }
-    // Convert the counts map to a list of entries and sort by 'count' in descending order
     var sortedCounts = counts.entries.toList()
       ..sort((a, b) => b.value['count']!.compareTo(a.value['count']!));
     // Take the top three entries
@@ -135,7 +135,7 @@ class DB {
         fecha: DateTime.parse(maps.first['fecha']),
       );
     } else {
-      return null; // Si no se encuentra un estado diario con ese ID, devolver null
+      return null;
     }
   }
 
