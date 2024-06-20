@@ -3,44 +3,49 @@ import 'package:go_router/go_router.dart';
 import '../../presenation/screens/screens.dart';
 
 final _rutasPublicas = GoRouter(
-    routes: [
-      GoRoute(
-          path: '/',
-          builder: (context, state) => PrimerInicioPantalla1(),
-      ),
-      GoRoute(
-          path: '/primer_inicio_pantalla1',
-          builder: (context, state) => PrimerInicioPantalla1(),
-      ),
-      GoRoute(
-          path: '/primer_inicio_pantalla2',
-          builder: (context, state) => PrimerInicioPantalla2(),
-      ),
-      GoRoute(
-          path: '/pantalla1_menu',
-          builder: (context, state) => Pantalla1Menu(),
-      ),
-      GoRoute(
-          path: '/pantalla2_seleccionDeEstado',
-          builder: (context, state) => Pantalla2SeleccionDeEstado(selectedDate: DateTime.now(),),
-      ),
-      GoRoute(
-          path: '/pantalla4_ajustes',
-          builder: (context, state) => Pantalla4Ajustes(),
-      ),
-      GoRoute(
-          path: '/pantalla3_estadisticas',
-          builder: (context, state) => Pantalla3Estadisticas(),
-      ),
-      GoRoute(
-          path: '/pantalla5_recomendaciones',
-          builder: (context, state) => Pantalla5Recomendaciones(),
-      )
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => PrimerInicioPantalla1(),
+    ),
+    GoRoute(
+      path: '/primer_inicio_pantalla1',
+      builder: (context, state) => PrimerInicioPantalla1(),
+    ),
+    GoRoute(
+      path: '/primer_inicio_pantalla2',
+      builder: (context, state) => PrimerInicioPantalla2(),
+    ),
+    GoRoute(
+      path: '/pantalla1_menu',
+      builder: (context, state) => Pantalla1Menu(),
+    ),
+    GoRoute(
+      path: '/pantalla2_seleccionDeEstado',
+      builder: (context, state) {
+        // Obtén la fecha del extra, o usa la fecha actual si no se proporciona
+        final selectedDate = state.extra as DateTime? ?? DateTime.now();
+        return Pantalla2SeleccionDeEstado(selectedDate: selectedDate);
+      },
+    ),
+    GoRoute(
+      path: '/pantalla4_ajustes',
+      builder: (context, state) => Pantalla4Ajustes(),
+    ),
+    GoRoute(
+      path: '/pantalla3_estadisticas',
+      builder: (context, state) => Pantalla3Estadisticas(),
+    ),
+    GoRoute(
+      path: '/pantalla5_recomendaciones',
+      builder: (context, state) => Pantalla5Recomendaciones(),
+    ),
+  ],
+);
 
-    ] );
+
 
 class CubitRutas extends Cubit<GoRouter> {
-
   CubitRutas() : super(_rutasPublicas);
 
   void goPrimerInicioPantalla1() {
@@ -52,11 +57,11 @@ class CubitRutas extends Cubit<GoRouter> {
   }
 
   void goPantalla1Menu() {
-    state.go('/Pantalla1_menu');
+    state.go('/pantalla1_menu');
   }
 
-  void goPantalla2SeleccionDeEstado() {
-    state.go('/pantalla2_seleccionDeEstado');
+  void goPantalla2SeleccionDeEstado({DateTime? selectedDate}) {
+    state.go('/pantalla2_seleccionDeEstado', extra: selectedDate);
   }
 
   void goPantalla4Ajustes() {
@@ -70,5 +75,5 @@ class CubitRutas extends Cubit<GoRouter> {
   void goPantalla5Recomendaciones() {
     state.go('/pantalla5_recomendaciones');
   }
-
 }
+

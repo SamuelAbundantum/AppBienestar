@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart'; // Asegúrate de tener este import para usar context.read
 import '../../config/helpers/estadoDiarioLoader.dart';
-import '../screens/screens.dart';
+import '../../config/router/rutas.dart'; // Asegúrate de importar la ruta correcta de tu archivo de CubitRutas
 
 class CalendarioWidget extends StatelessWidget {
   final estadoDiarioLoader _estadoDiarioLoader = estadoDiarioLoader();
@@ -27,7 +27,7 @@ class CalendarioWidget extends StatelessWidget {
           print('Error: ${snapshot.error}');
           return Text('Error: ${snapshot.error}');
         } else {
-          print('Eventos cargados2: ${snapshot.data}');
+          print('Eventos cargados: ${snapshot.data}');
           return TableCalendar(
             locale: 'es_ES',
             rowHeight: 85.h,
@@ -55,14 +55,7 @@ class CalendarioWidget extends StatelessWidget {
               return eventsForDay;
             },
             onDaySelected: (selectedDay, focusedDay) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Pantalla2SeleccionDeEstado(
-                    selectedDate: selectedDay,
-                  ),
-                ),
-              );
+              context.read<CubitRutas>().goPantalla2SeleccionDeEstado(selectedDate: selectedDay);
             },
             calendarBuilders: CalendarBuilders(
               markerBuilder: (context, date, events) {

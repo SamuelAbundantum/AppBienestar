@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importa la biblioteca intl
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class FechaWidget extends StatefulWidget {
+  final DateTime fechaInicial;
   final ValueChanged<DateTime> onDateSelected;
-  FechaWidget({required this.onDateSelected});
+
+  FechaWidget({
+    required this.onDateSelected,
+    required this.fechaInicial,
+  });
+
   @override
   _FechaWidgetState createState() => _FechaWidgetState();
 }
+
 class _FechaWidgetState extends State<FechaWidget> {
-  DateTime _fechaSeleccionada = DateTime.now();
+  late DateTime _fechaSeleccionada;
+
+  @override
+  void initState() {
+    super.initState();
+    _fechaSeleccionada = widget.fechaInicial;
+  }
+
   _seleccionarFecha(BuildContext context) async {
     final DateTime? fechaNueva = await showDatePicker(
       context: context,
@@ -16,6 +31,7 @@ class _FechaWidgetState extends State<FechaWidget> {
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
+
     if (fechaNueva != null) {
       final fechaSinTiempo = DateTime(fechaNueva.year, fechaNueva.month, fechaNueva.day);
       setState(() {
@@ -24,6 +40,7 @@ class _FechaWidgetState extends State<FechaWidget> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     String fechaFormateada = DateFormat('d \'de\' MMMM', 'es_ES').format(_fechaSeleccionada);

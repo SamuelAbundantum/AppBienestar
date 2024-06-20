@@ -10,6 +10,7 @@ class SelectorEstadoWidget extends StatefulWidget {
   final String titulo;
   final double borderRadius;
   final ValueChanged<int>? onIconSelected;
+  final int selectedIndex;
 
   SelectorEstadoWidget({
     required this.iconPaths,
@@ -19,6 +20,7 @@ class SelectorEstadoWidget extends StatefulWidget {
     required this.titulo,
     this.borderRadius = 100.0,
     this.onIconSelected,
+    this.selectedIndex = -1,
   });
 
   @override
@@ -26,7 +28,23 @@ class SelectorEstadoWidget extends StatefulWidget {
 }
 
 class _SelectorEstadoWidgetState extends State<SelectorEstadoWidget> {
-  int _selectedIcon = -1;
+  late int _selectedIcon;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIcon = widget.selectedIndex;
+  }
+
+  @override
+  void didUpdateWidget(covariant SelectorEstadoWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedIndex != oldWidget.selectedIndex) {
+      setState(() {
+        _selectedIcon = widget.selectedIndex;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

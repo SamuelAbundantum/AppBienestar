@@ -21,6 +21,37 @@ class DB {
     );
   }
 
+  static Future<EstadoDiario?> getEstadoDiarioByDate(String date) async {
+    // Abre la base de datos.
+    Database database = await _openDB();
+
+    // Convierte la fecha a cadena en el formato ISO 8601, que incluye la hora.
+
+    // Ejecuta la consulta SQL para buscar el estado diario por la fecha exacta.
+    final List<Map<String, dynamic>> maps = await database.query(
+        'estadoDiario',
+        where: 'fecha = ?',
+        whereArgs: [date]
+    );
+
+    // Si se encuentran resultados, crea y devuelve un objeto EstadoDiario.
+    if (maps.isNotEmpty) {
+      return EstadoDiario(
+        id: maps.first['id'],
+        comoEstasHoy: ComoEstasHoy.values.firstWhere((e) => e.toString() == maps.first['comoEstasHoy']),
+        comoTeSientes: ComoTeSientes.values.firstWhere((e) => e.toString() == maps.first['comoTeSientes']),
+        area: Area.values.firstWhere((e) => e.toString() == maps.first['area']),
+        texto: maps.first['texto'],
+        foto: maps.first['foto'],
+        fecha: DateTime.parse(maps.first['fecha']),
+      );
+    } else {
+      // Si no se encuentra nada, devuelve null.
+      return null;
+    }
+  }
+
+
   static Future<void> insertOrUpdateEstadoDiario(EstadoDiario estadoDiario) async {
     Database database = await _openDB();
 

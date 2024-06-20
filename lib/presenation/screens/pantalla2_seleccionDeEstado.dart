@@ -41,6 +41,36 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
         _isKeyboardVisible = visible;
       });
     });
+
+    _loadEstadoDiario();
+  }
+
+  Future<void> _loadEstadoDiario() async {
+    final selectedDateWithoutTime = DateTime(
+      _selectedDate.year,
+      _selectedDate.month,
+      _selectedDate.day,
+    );
+
+    final estadoDiario = await DB.getEstadoDiarioByDate(selectedDateWithoutTime.toString());
+    print('estadoDiario: $estadoDiario');
+    print('selectedDateWithoutTime: $selectedDateWithoutTime');
+    print('la que se pasa: $_selectedDate');
+
+    if (estadoDiario != null) {
+      setState(() {
+        _selectedEstado = estadoDiario.comoEstasHoy.index;
+        _selectedFeeling = estadoDiario.comoTeSientes.index;
+        _selectedArea = estadoDiario.area.index;
+        _textController.text = estadoDiario.texto;
+        _showFeelingSelector = _selectedEstado == 0 || _selectedEstado == 1;
+
+        // Aquí podrías cargar la imagen si existe una foto guardada
+        if (estadoDiario.foto.isNotEmpty) {
+          _image = File(estadoDiario.foto);
+        }
+      });
+    }
   }
 
   @override
@@ -53,11 +83,8 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
   void _onEstadoSelected(int index) {
     setState(() {
       _selectedEstado = index;
-      if (index == 0 || index == 1) {
-        _showFeelingSelector = true;
-        _selectedFeeling = -1;
-      } else {
-        _showFeelingSelector = false;
+      _showFeelingSelector = index == 0 || index == 1;
+      if (!_showFeelingSelector) {
         _selectedFeeling = -1;
       }
     });
@@ -182,6 +209,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
               left: 80.w,
               child: FechaWidget(
                 onDateSelected: _onDateSelected,
+                fechaInicial: _selectedDate,
               ),
             ),
             Positioned(
@@ -209,6 +237,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                         width: 300,
                         titulo: '¿Cómo estás hoy?',
                         onIconSelected: _onEstadoSelected,
+                        selectedIndex: _selectedEstado,
                       ),
                       SizedBox(height: 25.h),
                       if (_showFeelingSelector)
@@ -229,6 +258,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                           width: 300,
                           titulo: '¿Cómo te sientes?',
                           onIconSelected: _onFeelingSelected,
+                          selectedIndex: _selectedFeeling,
                         ),
                       SizedBox(height: 25.h),
                       SelectorEstadoWidget(
@@ -267,6 +297,7 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
                         titulo: 'Área de la vida',
                         borderRadius: 50,
                         onIconSelected: _onAreaSelected,
+                        selectedIndex: _selectedArea,
                       ),
                       SizedBox(height: 25.h),
                       EstadoConCamaraWidget(
