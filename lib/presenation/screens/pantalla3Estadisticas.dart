@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../config/helpers/dbSambami.dart';
+import 'package:proyectoabundantum_appbienestar/config/helpers/DataBase/estadoDiarioService.dart';
+import '../../config/helpers/DataBase/dbSambami.dart';
 import '../../config/router/rutas.dart';
 import '../widgets/widgets.dart';
 
@@ -18,6 +19,7 @@ class _Pantalla3EstadisticasState extends State<Pantalla3Estadisticas> {
   Map<String, int> _estadoDiarioCounts = {};
   Map<String, String> _topThreeEstadoDiario = {};
   bool _isLoading = true;
+  EstadoDiarioService estadoDiarioService = EstadoDiarioService();
 
   @override
   void initState() {
@@ -63,8 +65,8 @@ class _Pantalla3EstadisticasState extends State<Pantalla3Estadisticas> {
   Future<void> _cargarDatosDelMes(String mes) async {
     int mesNumero = obtenerNumeroDelMes(mes);
     try {
-      Map<String, int> estadoCounts = await DB.getEstadoDiarioCounts(mesNumero);
-      Map<String, String> topThreeAreas = await DB.getTopThreeEstadoDiarioCountsByArea(mesNumero);
+      Map<String, int> estadoCounts = await estadoDiarioService.getEstadoDiarioCounts(mesNumero);
+      Map<String, String> topThreeAreas = await estadoDiarioService.getTopThreeEstadoDiarioCountsByArea(mesNumero);
 
       print("Datos obtenidos para el mes $mesNumero:");
       print("estadoCounts: $estadoCounts");

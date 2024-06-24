@@ -1,7 +1,7 @@
-export 'rectangulo_pequenyo_indicador.dart';
-export 'boton_continuar.dart';
-export 'boton_hora.dart';
-export 'calendario_widget.dart';
+export 'rectanguloPequenyoIndicador.dart';
+export 'botonContinuar.dart';
+export 'botonHora.dart';
+export 'calendarioWidget.dart';
 export 'widgetBarra.dart';
 export 'botonFlechaIzquierda.dart';
 export 'botonGuardarWidget.dart';

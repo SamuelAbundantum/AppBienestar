@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../config/helpers/dbSambami.dart';
+import '../../config/helpers/DataBase/dbSambami.dart';
 import '../../domain/entities/hora.dart';
 
 class BotonHora extends StatefulWidget {

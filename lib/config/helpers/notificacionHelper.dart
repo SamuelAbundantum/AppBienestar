@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/hora.dart';
-import 'dbSambami.dart';
+import 'DataBase/dbSambami.dart';
 
 class NotificationHelper {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -65,10 +67,15 @@ class NotificationHelper {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
 
+    final Random random = Random();
+    final int randomMinutes = random.nextInt(31) - 15; // Generates -15 to +15
+    scheduledDate = scheduledDate.add(Duration(minutes: randomMinutes));
+
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
 
     return scheduledDate;
   }
+
 }

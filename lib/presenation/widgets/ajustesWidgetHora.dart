@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'boton_hora.dart';
+import 'botonHora.dart';
 
 class AjustesWidgetHora extends StatefulWidget {
   const AjustesWidgetHora({Key? key}) : super(key: key);

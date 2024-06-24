@@ -1,4 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../presenation/screens/screens.dart';
+
+import 'package:bloc/bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../presenation/screens/screens.dart';
 
@@ -6,7 +11,7 @@ final _rutasPublicas = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => PrimerInicioPantalla1(),
+      builder: (context, state) => const Placeholder(),
     ),
     GoRoute(
       path: '/primer_inicio_pantalla1',
@@ -23,7 +28,6 @@ final _rutasPublicas = GoRouter(
     GoRoute(
       path: '/pantalla2_seleccionDeEstado',
       builder: (context, state) {
-        // Obtén la fecha del extra, o usa la fecha actual si no se proporciona
         final selectedDate = state.extra as DateTime? ?? DateTime.now();
         return Pantalla2SeleccionDeEstado(selectedDate: selectedDate);
       },
@@ -42,8 +46,6 @@ final _rutasPublicas = GoRouter(
     ),
   ],
 );
-
-
 
 class CubitRutas extends Cubit<GoRouter> {
   CubitRutas() : super(_rutasPublicas);
@@ -76,4 +78,5 @@ class CubitRutas extends Cubit<GoRouter> {
     state.go('/pantalla5_recomendaciones');
   }
 }
+
 

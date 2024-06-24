@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import '../../config/helpers/dbSambami.dart';
+import '../../config/helpers/DataBase/dbSambami.dart';
 import '../../config/helpers/videosHelper.dart';
 import '../../config/router/rutas.dart';
 import '../../domain/entities/estadoDiario.dart';
@@ -65,7 +65,6 @@ class _Pantalla2SeleccionDeEstadoState extends State<Pantalla2SeleccionDeEstado>
         _textController.text = estadoDiario.texto;
         _showFeelingSelector = _selectedEstado == 0 || _selectedEstado == 1;
 
-        // Aquí podrías cargar la imagen si existe una foto guardada
         if (estadoDiario.foto.isNotEmpty) {
           _image = File(estadoDiario.foto);
         }

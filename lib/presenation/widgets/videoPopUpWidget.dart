@@ -27,7 +27,6 @@ class _VideoPopupState extends State<VideoPopup> {
         mute: false,
         enableCaption: false,
         isLive: false,
-        showLiveFullscreenButton: true,
       ),
     );
   }

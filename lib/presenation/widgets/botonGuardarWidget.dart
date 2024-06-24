@@ -25,18 +25,25 @@ class BotonGuardar extends StatelessWidget {
       height: largo.h,
       child: ElevatedButton(
         onPressed: enabled ? onPressed : null,
+        // Definimos el estilo del botón
         style: ButtonStyle(
+          // Definimos el color de fondo del botón
           backgroundColor: enabled
               ? WidgetStateProperty.all(Colors.green)
               : WidgetStateProperty.all(Colors.grey),
+          // Definimos el color del texto del botón
           foregroundColor: WidgetStateProperty.all(Colors.white),
+          // Definimos la forma del botón
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
+              // Definimos el radio del borde del botón
               borderRadius: BorderRadius.circular(radio),
+              // Definimos el color y ancho del borde del botón
               side: BorderSide(color: Colors.black, width: 1),
             ),
           ),
         ),
+        // Definimos el contenido del botón
         child: Text(
           'Guardar',
           style: TextStyle(
